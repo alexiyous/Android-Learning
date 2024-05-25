@@ -7,6 +7,10 @@ android {
     namespace = "com.alexius.volumebalok"
     compileSdk = 34
 
+    buildFeatures{
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.alexius.volumebalok"
         minSdk = 24
