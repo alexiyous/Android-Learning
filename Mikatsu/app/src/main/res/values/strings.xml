@@ -1,0 +1,149 @@
+<resources>
+    <string name="app_name">Mikatsu: Mama\'s Kitchen</string>
+    <string name="tv_by">by</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="full_name">Alexius Andrianno Alfa Renanta</string>
+    <string name="email">alexiusrenanta@gmail.com</string>
+    <string name="about">About</string>
+
+    <!--Recipe Name-->
+    <string-array name="recipe_name">
+        <item>Autumn Spiced Granola</item>
+        <item>Blueberry Buttermilk Muffins</item>
+        <item>Chicken Noodle Soup</item>
+        <item>Butterscotch Chocolate Chip Cookies</item>
+        <item>Apple Bars</item>
+        <item>Honey Thyme Roasted Carrots</item>
+        <item>Herbs de Provence Chicken and Potatoes</item>
+        <item>Cinnamon Apple Cake</item>
+        <item>No-Bake Pumpkin Cheesecake Bars</item>
+        <item>Spicy Sausage Pasta</item>
+    </string-array>
+
+    <!--Author Name-->
+    <string-array name="author_name">
+        <item>Alexander Johnson</item>
+        <item>Emily Smith</item>
+        <item>Benjamin Carter</item>
+        <item>Olivia Brown</item>
+        <item>William Davis</item>
+        <item>Sophia Martinez</item>
+        <item>James Wilson</item>
+        <item>Isabella Anderson</item>
+        <item>Michael Lee</item>
+        <item>Mia Harris</item>
+    </string-array>
+
+    <!--Recipe Description-->
+    <string-array name="recipe_desc">
+        <item>This Autumn Spiced Granola is sure to be a hit when fall arrives. Packed with oats, nuts, pumpkin seeds, and cranberries and flavored with honey and autumnal spices, you’ll have a tough time keeping your hands out of the granola jar.</item>
+        <item>These Blueberry Buttermilk Muffins have a tender, moist, and slightly tangy crumb with pops of fresh blueberries. They’re also topped with coarse sugar for a bakery-style finish!</item>
+        <item>This quick and easy chicken noodle soup can be made in just 30 minutes meaning you’ll be warm and cozy in no time! Made with tender white chicken, egg noodles, veggies, and dill you’ll want to make this hearty soup again and again.</item>
+        <item>These Butterscotch Chocolate Chip Cookies are tender, chewy, and absolutely loaded with butterscotch and chocolate chips. Then, they’re finished with a sprinkle of flaky sea salt for a salty-sweet combo you’ll love!</item>
+        <item>These apple bars are loaded with tender cinnamon-spiced apples sandwiched between a tender crust and a crunchy crumble topping.</item>
+        <item>Honey Thyme Roasted Carrots are fast and easy to make with just a few simple ingredients. They’re sweet and salty and herby making them a great side dish to go with any main meal.</item>
+        <item>Herbs de Provence Chicken and Potatoes is the ultimate weeknight dinner. Chicken thighs are seasoned and roasted on top of potatoes, shallots, and garlic in thyme-infused cream sauce. It’s a mostly hands-off one-pot recipe that’s loaded with flavor and can be served right from the dish.</item>
+        <item>This Cinnamon Apple Cake is what fall is all about. It’s a super easy recipe that will get you right in the cozy mood in no time. The cake is tender and sweet and absolutely loaded with diced apples then it’s topped with a crunchy layer of cinnamon and brown sugar.</item>
+        <item>These easy no-bake Pumpkin Cheesecake Bars have a tender graham cracker crust topped with layers of vanilla and pumpkin cheesecake. Serve them with whipped cream and cinnamon for the perfect fall treat!</item>
+        <item>Spicy Sausage Pasta is the perfect weeknight meal. It’s hearty and creamy and made with mostly pantry staples. You can have this flavor-packed dinner on the table in under 30 minutes!</item>
+    </string-array>
+
+    <!--Recipe Image-->
+    <integer-array name="recipe_image">
+        <item>@drawable/autumn_spiced_granola</item>
+        <item>@drawable/blueberry_buttermilk_muffins</item>
+        <item>@drawable/chicken_noodle_soup</item>
+        <item>@drawable/butterscotch_chocolate_chip_cookies</item>
+        <item>@drawable/apple_bars</item>
+        <item>@drawable/honey_thyme_roasted_carrots</item>
+        <item>@drawable/herbs_de_provence_chicken</item>
+        <item>@drawable/cinnamon_apple_cake</item>
+        <item>@drawable/pumpkin_cheesecake_bars</item>
+        <item>@drawable/spicy_sausage_pasta</item>
+    </integer-array>
+
+    <!--Recipe Ingredients-->
+    <string-array name="recipe_ingredients">
+        <item>
+            <![CDATA[
+            • Be sure to use old-fashioned rolled oats and not quick-cooking oats for this recipe. They will result in the best texture.<br/>
+            • Pecans, walnuts, and almonds add a lot of flavor and texture to this granola. You could also use cashews, pistachios, or any other nuts you like.<br/>
+            • Shelled pumpkin seeds, also called pepitas, give this granola an added crunch. And, of course, pumpkin seeds up the fall factor! Look for ones that are roasted and salted. Sunflower seeds would also be good.<br/>
+            • Oil is necessary for making chewy granola since it adds much-needed moisture and helps to bind everything together. Otherwise, you would have dry and crumbly granola. Grapeseed oil is my oil of choice since it has a neutral flavor. However, olive oil (not extra virgin), vegetable oil, or melted coconut oil would also work.<br/>
+            • Honey is my sweetener of choice but maple syrup is a delicious option too, especially if you want to keep this vegan.<br/>
+            • Dried cranberries add a sweet and tart chewiness to granola. Of course, cranberries are ubiquitous with fall so they fit right in here. Other dried fruits, like raisins, would make a great substitution.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • No need for special flour, all-purpose flour will do the trick.<br/>
+            • Using canola oil rather than butter results in a more moist muffin that stays moist for longer. You can, however, use melted butter instead of oil if you prefer.<br/>
+            • I use fresh blueberries in this recipe but you can use frozen instead. Just make sure to keep them frozen before adding them or they’ll turn the muffin batter purple.<br/>
+            • I highly recommend using coarse sugar, like turbinado, to top the muffin batter before baking. This gives the muffins a nice crunchy texture on top. However, you can use granulated sugar instead. It just won’t be as crunchy.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • I like to use white meat chicken for my chicken noodle soup but boneless skinless thighs would work well too.<br/>
+            • Egg noodles are a classic choice for chicken noodle soup. I like to use wide or extra broad wavy egg noodles but you could also use fine or medium egg noodles. Just be sure to adjust the boiling time according to the package.<br/>
+            • Dill adds a nice freshness to this recipe. Parsley or thyme would also work.<br/>
+            • Choose regular or low-sodium chicken broth based on your preferences. If choosing low-sodium, you may need to add a bit more salt at the end to help balance the flavors.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Using a little bit of cornstarch helps keep the cookies nice and soft and helps prevent them from spreading.<br/>
+            • Brown sugar adds moisture resulting in chewier cookies while white sugar helps the edges crisp up.<br/>
+            • A sprinkle of flaky sea salt on top of these decadent cookies balances out the sweetness.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Apples – choose apples that are sweet and tart and hold up well to baking. Honey Crisp, Cosmic Crisp, Pink Lady, Braeburn, and Cortland are all great choices. If you prefer a more tart apple, Granny Smith apples are the way to go.<br/>
+            • Sugar and Brown Sugar – both add just enough sweetness to balance out the apples. White sugar allows the crumble topping to become crunchy and brown sugar adds a deeper flavor to the crust and apples.<br/>
+            • Cinnamon – you can never go wrong when pairing cinnamon with apples.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Carrots – Fresh sweet carrots peeled and cut into 1-inch pieces are the perfect size to quickly roast.<br/>
+            • Honey – Adds sweetness to the carrots that balance with the butter, salt, and thyme.<br/>
+            • Thyme – Fresh thyme is preferred here but dried thyme will also work if it’s all you have.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Chicken Thighs – Bone-in skin-on chicken thighs are best for this recipe. We’ll be roasting them for almost an hour so you want the bone and skin to help protect the chicken and keep it moist. Plus, the crispy skin should not be missed!<br/>
+            • Potatoes – I like to use baby yellow potatoes but any waxy potato cut into bite-size pieces will work.<br/>
+            • Herbs de Provence – Also spelled herbes de Provence as it originated in the Provence region in Southeastern France. This herb blend often includes thyme, rosemary, basil, marjoram, tarragon, fennel, savory, and parsley though the blend can vary.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Flour – Nothing fancy here, all-purpose flour does the trick.<br/>
+            • Apples – I used Cosmic Crisp apple for this recipe but any sweet-tart variety would work. Honey Crisp, Granny Smith, Fuji, and Pink Lady apples would all be great options.<br/>
+            • Canola Oil – I like to use oil in recipes like this since it helps to keep the cake from drying out during the long baking time.<br/>
+            • Salt – Is necessary to balance out the sweetness. I recommend using a coarse kosher salt.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Graham Crackers – Classic cheesecake crust ingredient.<br/>
+            • Cream Cheese – The base of the filling for each cheesecake layer. I suggest using full-fat cream cheese for the best flavor and texture.<br/>
+            • Canned Pumpkin – Be sure to grab pure pumpkin purée and not pumpkin pie filling which is already flavored with spices.<br/>
+            • Spice Blend – Cinnamon, ginger, nutmeg, allspice, and cloves give the pumpkin cheesecake layer a warm spiced flavor.<br/>
+            • Heavy Cream – Makes this no-bake cheesecake light and creamy.<br/>
+            ]]>
+        </item>
+        <item>
+            <![CDATA[
+            • Penne Noodles – I like to use penne for this recipe but any short rib pasta would be good. Try it with rigatoni, bowtie, or elbow-shaped pasta. Thick pappardelle noodles would also be great.<br/>
+            • Hot Italian Sausage – Can vary in spiciness so pick one that you like and adjust the heat in the sauce with the red pepper flakes.<br/>
+            • Tomato Paste – Adds savoriness to the sauce without watering it down.<br/>
+            • Red Pepper Flakes – Add a bit of heat to the sauce.<br/>
+            • Half and Half – Adds creaminess to the sauce.<br/>
+            • Parmesan – Adds flavor and nuttiness to the sauce. I prefer to freshly grate Parmigiano Reggiano but any parmesan will work.<br/>
+            ]]>
+        </item>
+    </string-array>
+</resources>
