@@ -27,11 +27,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribe() {
-        val elapsedTimeObserver = Observer<Long?> { aLong ->
+        /*val elapsedTimeObserver = Observer<Long?> { aLong ->
             val newText = this@MainActivity.resources.getString(R.string.seconds, aLong)
             activityMainBinding.timerTextview.text = newText
-        }
+        }*/
 
-        liveDataTimerViewModel.getElapsedTime().observe(this, elapsedTimeObserver)
+        liveDataTimerViewModel.getElapsedTime().observe(this) { elapsedTime ->
+            val newText = this@MainActivity.resources.getString(R.string.seconds, elapsedTime)
+            activityMainBinding.timerTextview.text = newText
+        }
     }
 }
