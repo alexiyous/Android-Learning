@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Github</string>
+
+    <string name="search_user_title_actionBar">Github User\'s Search</string>
+    <string name="settings">Settings</string>
+    <string name="searchbar_hint">Search Username</string>
+</resources>
