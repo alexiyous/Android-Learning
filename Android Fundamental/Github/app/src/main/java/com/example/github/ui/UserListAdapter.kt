@@ -30,7 +30,7 @@ class UserListAdapter : ListAdapter<ItemsItem, UserListAdapter.MyViewHolder>(DIF
 
     private fun onItemClickCallback(user: ItemsItem?, context: Context) {
         val userDetailIntent = Intent(context, UserDetailActivity::class.java)
-        userDetailIntent.putExtra(UserDetailActivity.USERNAME, user?.login)
+       /* userDetailIntent.putExtra(UserDetailActivity.USERNAME, user?.login)*/
     }
 
     class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -1,6 +1,6 @@
 package com.example.github.data.retrofit
 
-import de.hdodenhof.circleimageview.BuildConfig
+import com.example.github.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,12 +8,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
+
     companion object {
+        val apiKey = BuildConfig.API_KEY
+        val baseUrl = BuildConfig.BASE_URL
+
         fun getApiService(): ApiService {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", "token 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")
+                    .addHeader("Authorization", apiKey)
                     .build()
                 chain.proceed(requestHeaders)
             }
@@ -21,7 +25,7 @@ class ApiConfig {
                 .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

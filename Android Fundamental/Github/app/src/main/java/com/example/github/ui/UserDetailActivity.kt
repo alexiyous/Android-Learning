@@ -9,10 +9,6 @@ import com.example.github.R
 
 class UserDetailActivity : AppCompatActivity() {
 
-    companion object{
-        const val USERNAME = "Username"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
