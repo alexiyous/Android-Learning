@@ -7,7 +7,6 @@ plugins {
 android {
     namespace = "com.example.github"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.example.github"
         minSdk = 24
@@ -17,7 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", "\"token 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\"")
+        buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
         buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
     }
 
@@ -35,12 +34,12 @@ android {
             )
 
 
-            buildConfigField("String", "API_KEY", "\"token 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\"")
+            buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
             buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
         }
 
         debug {
-            buildConfigField("String", "API_KEY", "\"token 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\"")
+            buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
             buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
         }
     }
