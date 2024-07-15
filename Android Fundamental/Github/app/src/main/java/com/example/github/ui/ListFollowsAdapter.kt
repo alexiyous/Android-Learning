@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.github.data.response.ItemsItem
+import com.example.github.data.response.FollowerResponseItem
 import com.example.github.databinding.ItemUserBinding
 
-class UserListAdapter : ListAdapter<ItemsItem, UserListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListFollowsAdapter : ListAdapter<FollowerResponseItem, ListFollowsAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,22 +20,13 @@ class UserListAdapter : ListAdapter<ItemsItem, UserListAdapter.MyViewHolder>(DIF
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListFollowsAdapter.MyViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user)
-        holder.binding.root.setOnClickListener {
-            onItemClickCallback(user, holder.binding.root.context)
-        }
-    }
-
-    private fun onItemClickCallback(user: ItemsItem, context: Context) {
-        val userDetailIntent = Intent(context, UserDetailActivity::class.java)
-        UserDetailActivity.username = user.login
-        context.startActivity(userDetailIntent)
     }
 
     class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ItemsItem) {
+        fun bind(user: FollowerResponseItem) {
             Glide.with(binding.root)
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
@@ -45,22 +35,21 @@ class UserListAdapter : ListAdapter<ItemsItem, UserListAdapter.MyViewHolder>(DIF
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowerResponseItem>() {
             override fun areItemsTheSame(
-                oldItem: ItemsItem,
-                newItem: ItemsItem
+                oldItem: FollowerResponseItem,
+                newItem: FollowerResponseItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ItemsItem,
-                newItem: ItemsItem
+                oldItem: FollowerResponseItem,
+                newItem: FollowerResponseItem
             ): Boolean {
                 return oldItem == newItem
             }
 
         }
     }
-
 }

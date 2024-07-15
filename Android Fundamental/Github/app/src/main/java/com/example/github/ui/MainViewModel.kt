@@ -1,5 +1,6 @@
 package com.example.github.ui
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,6 +32,11 @@ class MainViewModel : ViewModel(){
     }
 
     fun searchUsers(usernameQuery: String) {
+        if (usernameQuery.isEmpty()) {
+            _snackbarText.value = Event("Please input username")
+            return
+        }
+
         _isLoading.value = true
         val client = ApiConfig.getApiService().searchUsers(usernameQuery)
         client.enqueue(object : retrofit2.Callback<SearchUserResponse> {
@@ -40,6 +46,11 @@ class MainViewModel : ViewModel(){
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
+                    if (response.body()?.items.isNullOrEmpty()) {
+                        _snackbarText.value = Event("User not found")
+                        return
+                    }
+
                     _usernameList.value = response.body()?.items
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
