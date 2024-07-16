@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
+        buildConfigField("String", "API_KEY", "\"token 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\"")
         buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
     }
 
@@ -34,12 +34,12 @@ android {
             )
 
 
-            buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
+            buildConfigField("String", "API_KEY", "\"token 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\"")
             buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
         }
 
         debug {
-            buildConfigField("String", "API_KEY", "\"CHANGE WITH YOUR API KEY\"")
+            buildConfigField("String", "API_KEY", "\"token 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\"")
             buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
         }
     }
