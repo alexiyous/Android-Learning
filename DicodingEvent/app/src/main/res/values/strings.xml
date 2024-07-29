@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dicoding Event</string>
+    <string name="upcoming">Upcoming Events</string>
+    <string name="finished_events">Finished Events</string>
+</resources>
