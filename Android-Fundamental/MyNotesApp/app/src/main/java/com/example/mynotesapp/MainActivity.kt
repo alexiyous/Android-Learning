@@ -2,17 +2,24 @@ package com.example.mynotesapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mynotesapp.adapter.NoteAdapter
 import com.example.mynotesapp.databinding.ActivityMainBinding
+import com.example.mynotesapp.db.NoteHelper
 import com.example.mynotesapp.entity.Note
+import com.example.mynotesapp.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -47,6 +54,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        private const val EXTRA_STATE = "EXTRA_STATE"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -68,6 +79,42 @@ class MainActivity : AppCompatActivity() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
             resultLauncher.launch(intent)
+        }
+
+        if (savedInstanceState == null) {
+            // proses ambil data
+            loadNotesAsync()
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<Note>(EXTRA_STATE)
+            if (list != null) {
+                adapter.listNotes = list
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.listNotes)
+    }
+
+    private fun loadNotesAsync() {
+        lifecycleScope.launch {
+            binding.progressbar.visibility = View.VISIBLE
+            val noteHelper = NoteHelper.getInstance(applicationContext)
+            noteHelper.open()
+            val deferredNotes = async(Dispatchers.IO) {
+                val cursor = noteHelper.queryAll()
+                MappingHelper.mapCursorToArrayList(cursor)
+            }
+            binding.progressbar.visibility = View.INVISIBLE
+            val notes = deferredNotes.await()
+            if (notes.size > 0) {
+                adapter.listNotes = notes
+            } else {
+                adapter.listNotes = ArrayList()
+                showSnackbarMessage("Tidak ada data saat ini")
+            }
+            noteHelper.close()
         }
     }
 
