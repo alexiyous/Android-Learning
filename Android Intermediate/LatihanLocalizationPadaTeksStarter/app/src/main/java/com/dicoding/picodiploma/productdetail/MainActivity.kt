@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         setupView()
         setupAction()
         setupData()
+
+    }
+
+    private fun setupAccessibility(productModel: ProductModel) {
+        TODO("Not yet implemented")
     }
 
     private fun setupAction() {
@@ -57,7 +62,10 @@ class MainActivity : AppCompatActivity() {
                 priceTextView.text = price.withCurrencyFormat()
                 dateTextView.text = getString(R.string.dateFormat, date.withDateFormat())
                 ratingTextView.text = getString(R.string.ratingFormat, rating.withNumberingFormat(), countRating.withNumberingFormat())
+                storeTextView.contentDescription = getString(R.string.storeDescription, store)
             }
         }
+
+        setupAccessibility(product)
     }
 }
