@@ -37,6 +37,17 @@ android {
 
 dependencies {
 
+    //EXIF
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //lifecycleScope
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+
     //CameraX
     implementation("androidx.camera:camera-camera2:1.2.3")
     implementation("androidx.camera:camera-lifecycle:1.2.3")
