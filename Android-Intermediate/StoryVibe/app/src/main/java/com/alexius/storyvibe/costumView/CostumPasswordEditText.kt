@@ -34,4 +34,9 @@ class CustomPasswordEditText @JvmOverloads constructor(
             }
         })
     }
+
+    fun getText(): String {
+        val editText = findViewById<TextInputEditText>(R.id.customPasswordEditText)
+        return editText.text.toString()
+    }
 }

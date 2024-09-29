@@ -5,15 +5,23 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.alexius.storyvibe.R
 import com.alexius.storyvibe.databinding.ActivitySignUpBinding
+import com.alexius.storyvibe.view.ViewModelFactory
+import com.alexius.storyvibe.data.Result
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
+
+    private val viewModel by viewModels<SignUpViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +39,61 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        TODO("Not yet implemented")
+        binding.signupButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditTextLayout.getText()
+            viewModel.registerUser(name, email, password).observe(this) { response ->
+                if (response != null) {
+                    when (response) {
+                        is Result.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.signupButton.isEnabled = false
+                        }
+                        is Result.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.signupButton.isEnabled = true
+
+                            if (response.data.error) {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Error")
+                                    .setMessage(response.data.message)
+                                    .setPositiveButton("OK") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                                return@observe
+                            } else {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Success")
+                                    .setMessage("Registration success")
+                                    .setPositiveButton("OK") { dialog, _ ->
+                                        dialog.dismiss()
+                                        finish()
+                                    }
+                                    .show()
+                            }
+                        }
+                        is Result.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.signupButton.isEnabled = true
+                            AlertDialog.Builder(this)
+                                .setTitle("Error")
+                                .setMessage(response.error)
+                                .setPositiveButton("OK") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                .show()
+                        }
+                    }
+                }
+
+            }
+        }
     }
 
     private fun setupAnimation() {
+        val imageView = ObjectAnimator.ofFloat(binding.imageView, View.ALPHA, 1f).setDuration(500)
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val nameText = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(500)
         val nameEdit = ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(500)
@@ -45,7 +104,7 @@ class SignUpActivity : AppCompatActivity() {
         val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(title, nameText, nameEdit, emailText, emailEdit, passwordText, passwordEdit, signup)
+            playSequentially(imageView, title, nameText, nameEdit, emailText, emailEdit, passwordText, passwordEdit, signup)
             startDelay = 100
             start()
         }
