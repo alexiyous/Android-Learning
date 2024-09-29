@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -54,16 +54,7 @@ class SignUpActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             binding.signupButton.isEnabled = true
 
-                            if (response.data.error) {
-                                AlertDialog.Builder(this)
-                                    .setTitle("Error")
-                                    .setMessage(response.data.message)
-                                    .setPositiveButton("OK") { dialog, _ ->
-                                        dialog.dismiss()
-                                    }
-                                    .show()
-                                return@observe
-                            } else {
+                            if (!response.data.error) {
                                 AlertDialog.Builder(this)
                                     .setTitle("Success")
                                     .setMessage("Registration success")

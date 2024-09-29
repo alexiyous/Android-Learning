@@ -41,6 +41,9 @@ android {
 
 dependencies {
 
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
