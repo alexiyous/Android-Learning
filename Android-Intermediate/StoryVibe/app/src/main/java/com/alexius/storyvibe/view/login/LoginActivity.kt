@@ -12,12 +12,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.alexius.storyvibe.R
 import com.alexius.storyvibe.data.Result
 import com.alexius.storyvibe.databinding.ActivityLoginBinding
-import com.alexius.storyvibe.databinding.ActivitySignUpBinding
 import com.alexius.storyvibe.view.ViewModelFactory
-import com.alexius.storyvibe.view.homepage.HomeActivtiy
+import com.alexius.storyvibe.view.homepage.HomeActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -74,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                         binding.progressIndicator.visibility = View.GONE
                         binding.loginButton.isEnabled = true
                         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeActivtiy::class.java).apply {
+                        val intent = Intent(this, HomeActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         }
                         startActivity(intent)

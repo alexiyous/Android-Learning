@@ -35,7 +35,7 @@ class ListStoryAdapter : ListAdapter<ListStoryItem, ListStoryAdapter.ListStoryVi
         val storyItem = getItem(position)
         holder.bind(storyItem)
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(storyItem)
+            onItemClickCallback.onItemClicked(storyItem, holder.binding)
         }
     }
 
@@ -51,7 +51,7 @@ class ListStoryAdapter : ListAdapter<ListStoryItem, ListStoryAdapter.ListStoryVi
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: ListStoryItem)
+        fun onItemClicked(data: ListStoryItem, view: ItemStoryBinding)
     }
 
     companion object {
