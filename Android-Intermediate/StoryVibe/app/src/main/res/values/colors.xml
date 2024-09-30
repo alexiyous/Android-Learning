@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="vivid_teal">#009688</color>
+    <color name="placeholder">#6FB6B6B6</color>
 </resources>

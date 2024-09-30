@@ -2,6 +2,7 @@ package com.alexius.storyvibe.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import com.alexius.storyvibe.data.Result
 import com.alexius.storyvibe.databinding.ActivityLoginBinding
 import com.alexius.storyvibe.databinding.ActivitySignUpBinding
 import com.alexius.storyvibe.view.ViewModelFactory
+import com.alexius.storyvibe.view.homepage.HomeActivtiy
 
 class LoginActivity : AppCompatActivity() {
 
@@ -71,8 +73,12 @@ class LoginActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.progressIndicator.visibility = View.GONE
                         binding.loginButton.isEnabled = true
-                        //TODO: Start new activity into Home Page
                         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, HomeActivtiy::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                        startActivity(intent)
+                        finish()
                     }
                     is Result.Error -> {
                         binding.progressIndicator.visibility = View.GONE

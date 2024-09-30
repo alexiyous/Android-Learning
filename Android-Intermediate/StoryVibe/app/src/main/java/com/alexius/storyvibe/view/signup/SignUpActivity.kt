@@ -47,11 +47,11 @@ class SignUpActivity : AppCompatActivity() {
                 if (response != null) {
                     when (response) {
                         is Result.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
+                            binding.progressIndicator.visibility = View.VISIBLE
                             binding.signupButton.isEnabled = false
                         }
                         is Result.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding.progressIndicator.visibility = View.GONE
                             binding.signupButton.isEnabled = true
 
                             if (!response.data.error) {
@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
                             }
                         }
                         is Result.Error -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding.progressIndicator.visibility = View.GONE
                             binding.signupButton.isEnabled = true
                             AlertDialog.Builder(this)
                                 .setTitle("Error")
