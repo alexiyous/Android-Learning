@@ -9,6 +9,7 @@ import com.alexius.storyvibe.di.Injection
 import com.alexius.storyvibe.view.homepage.HomeViewModel
 import com.alexius.storyvibe.view.login.LoginViewModel
 import com.alexius.storyvibe.view.signup.SignUpViewModel
+import com.alexius.storyvibe.view.uploadstory.UploadStoryViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -20,6 +21,8 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             return LoginViewModel(repository) as T
         } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(UploadStoryViewModel::class.java)) {
+            return UploadStoryViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

@@ -15,4 +15,8 @@
     <string name="logout">Sign Out</string>
 
     <string name="password_error">Password must not be less than 8 characters</string>
+    <string name="take_a_photo">Take a photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="tell_your_stories">Tell your Stories</string>
+    <string name="upload_your_story">Upload Your Story</string>
 </resources>

@@ -35,7 +35,13 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         setupAction()
+        setupView()
         setupAnimation()
+    }
+
+    private fun setupView() {
+        // Set the status bar text color to black
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     private fun setupAction() {

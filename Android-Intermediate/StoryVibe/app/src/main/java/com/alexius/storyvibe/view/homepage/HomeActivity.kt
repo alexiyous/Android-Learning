@@ -1,5 +1,6 @@
 package com.alexius.storyvibe.view.homepage
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -21,6 +24,7 @@ import com.alexius.storyvibe.databinding.ActivityHomeBinding
 import com.alexius.storyvibe.databinding.ItemStoryBinding
 import com.alexius.storyvibe.view.ViewModelFactory
 import com.alexius.storyvibe.view.storydetail.StoryDetailActivity
+import com.alexius.storyvibe.view.uploadstory.UploadStoryActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -29,6 +33,10 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
+    private val storyAdapter = ListStoryAdapter()
+
+    private lateinit var uploadStoryLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +49,26 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
+        setupView()
         setupAction()
     }
 
-    private fun setupAction() {
+    private fun setupView() {
+        // Set the status bar text color to black
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         setSupportActionBar(binding.toolbar)
 
-        val storyAdapter = ListStoryAdapter()
+        getStories()
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = storyAdapter
+        }
+    }
+
+    private fun getStories() {
         viewModel.getAllStories().observe(this) { response ->
             when (response) {
                 is Result.Loading -> {
@@ -72,12 +92,9 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = storyAdapter
-        }
+    private fun setupAction() {
 
         storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem, view: ItemStoryBinding) {
@@ -94,6 +111,21 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent, optionsCompat.toBundle())
             }
         })
+
+        uploadStoryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val isUploaded = result.data?.getBooleanExtra(UploadStoryActivity.IS_UPLOADED, false) ?: false
+                if (isUploaded) {
+                    getStories()
+                    result.data?.putExtra(UploadStoryActivity.IS_UPLOADED, false) // Reset the value to false
+                }
+            }
+        }
+
+        binding.fab.setOnClickListener{
+            val intent = Intent(this, UploadStoryActivity::class.java)
+            uploadStoryLauncher.launch(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -109,5 +141,9 @@ class HomeActivity : AppCompatActivity() {
                 true
             } else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        const val STORY_ITEM = "story_item"
     }
 }

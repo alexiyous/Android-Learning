@@ -82,4 +82,13 @@ data class ListStoryItem(
 	val lat: Double? = null
 ) : Parcelable
 
+data class AddStoryResponse(
+
+	@field:SerializedName("error")
+	val error: Boolean? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
+)
+
 

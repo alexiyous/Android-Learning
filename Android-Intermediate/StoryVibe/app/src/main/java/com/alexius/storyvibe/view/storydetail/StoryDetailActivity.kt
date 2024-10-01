@@ -1,7 +1,9 @@
 package com.alexius.storyvibe.view.storydetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ScrollView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,10 @@ class StoryDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+
+        // Set the status bar text color to black
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         val storyItem = intent.getParcelableExtra<ListStoryItem>(STORY_ITEM)
         Glide.with(this)
             .load(storyItem?.photoUrl)
@@ -54,7 +60,8 @@ class StoryDetailActivity : AppCompatActivity() {
                 if (scrollY > oldScrollY) {
                     navigationIcon.alpha = 0
                 } else if (scrollY < oldScrollY) {
-                    navigationIcon.alpha = 1
+                    navigationIcon.alpha = 255
+                    Log.d("scroll", "scrolling up")
                 }
             }
         }
