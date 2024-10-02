@@ -17,7 +17,8 @@
         tools:targetApi="31">
         <activity
             android:name=".view.uploadstory.UploadStoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".view.storydetail.StoryDetailActivity"
             android:exported="false" />
@@ -28,10 +29,12 @@
         <activity
             android:name=".view.signup.SignUpActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.welcome.WelcomeActivity"

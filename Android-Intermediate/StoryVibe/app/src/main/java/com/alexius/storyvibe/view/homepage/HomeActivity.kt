@@ -2,11 +2,13 @@ package com.alexius.storyvibe.view.homepage
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +18,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexius.storyvibe.R
 import com.alexius.storyvibe.data.Result
@@ -40,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.vivid_teal)))
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -54,8 +57,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        // Set the status bar text color to black
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setSupportActionBar(binding.toolbar)
 
@@ -79,7 +80,9 @@ class HomeActivity : AppCompatActivity() {
                     val storyData = response.data
                     val listStory: List<ListStoryItem?>? = storyData.listStory
                     if (listStory != null) {
-                        storyAdapter.submitList(listStory)
+                        storyAdapter.submitList(listStory) {
+                            binding.recyclerView.scrollToPosition(0)
+                        }
                     }
                 }
                 is Result.Error -> {

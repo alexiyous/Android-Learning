@@ -2,16 +2,20 @@ package com.alexius.storyvibe.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.alexius.storyvibe.data.Result
 import com.alexius.storyvibe.databinding.ActivityLoginBinding
 import com.alexius.storyvibe.view.ViewModelFactory
@@ -27,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT))
         binding = ActivityLoginBinding.inflate(layoutInflater)
         Log.d(TAG, "TEST")
         setContentView(binding.root)
@@ -38,13 +42,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         setupAction()
-        setupView()
         setupAnimation()
-    }
-
-    private fun setupView() {
-        // Set the status bar text color to black
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 
     private fun setupAnimation() {

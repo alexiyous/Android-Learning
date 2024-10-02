@@ -2,10 +2,13 @@ package com.alexius.storyvibe.view.uploadstory
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.alexius.storyvibe.data.Result
 import com.alexius.storyvibe.databinding.ActivityUploadStoryBinding
 import com.alexius.storyvibe.utils.getImageUri
@@ -30,7 +34,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT))
         binding = ActivityUploadStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -39,18 +43,22 @@ class UploadStoryActivity : AppCompatActivity() {
             insets
         }
 
+        if (savedInstanceState != null) {
+            currentImageUri = savedInstanceState.getParcelable("currentImageUri")
+            showImage()
+        }
+
         setupAction()
-        setupView()
     }
 
-    private fun setupView() {
-        // Set the status bar text color to black
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        currentImageUri?.let {
+            outState.putParcelable("currentImageUri", it)
+        }
     }
 
     private fun setupAction() {
-
-
 
         binding.galleryButton.setOnClickListener {
             startGallery()
@@ -68,30 +76,34 @@ class UploadStoryActivity : AppCompatActivity() {
             viewModel.uploadStory(currentImageUri!!, this, binding.storyText.text.toString()).observe(this){ response ->
                 when (response) {
                     is Result.Loading -> {
-                        binding.progressIndicator.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
                         binding.uploadButton.isEnabled = false
                         binding.storyText.isEnabled = false
                         binding.galleryButton.isEnabled = false
                         binding.cameraButton.isEnabled = false
                     }
                     is Result.Success -> {
-                        binding.progressIndicator.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         binding.uploadButton.isEnabled = true
                         binding.storyText.isEnabled = true
                         binding.galleryButton.isEnabled = true
                         binding.cameraButton.isEnabled = true
                         onUploadSuccess()
+                        Toast.makeText(this, "Story uploaded", Toast.LENGTH_SHORT).show()
                     }
                     is Result.Error -> {
-                        binding.progressIndicator.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
                         binding.uploadButton.isEnabled = true
                         binding.storyText.isEnabled = true
                         binding.galleryButton.isEnabled = true
                         binding.cameraButton.isEnabled = true
                         Log.d("UploadStory", "Error: ${response.error}")
+                        Toast.makeText(this, response.error, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
+        } else {
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
         }
     }
 

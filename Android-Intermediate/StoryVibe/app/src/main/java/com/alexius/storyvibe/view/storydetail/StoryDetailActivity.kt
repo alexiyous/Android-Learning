@@ -1,14 +1,18 @@
 package com.alexius.storyvibe.view.storydetail
 
+import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ScrollView
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.widget.NestedScrollView
 import com.alexius.storyvibe.R
 import com.alexius.storyvibe.data.remote.response.ListStoryItem
@@ -22,7 +26,7 @@ class StoryDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT))
         binding = ActivityStoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -42,9 +46,6 @@ class StoryDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-
-        // Set the status bar text color to black
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         val storyItem = intent.getParcelableExtra<ListStoryItem>(STORY_ITEM)
         Glide.with(this)

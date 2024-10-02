@@ -23,13 +23,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/storyImageView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
+                android:layout_height="400dp"
+                android:scaleType="centerInside"
                 android:transitionName="image"
                 tools:src="@tools:sample/avatars"
                 app:layout_constraintTop_toTopOf="parent"
