@@ -1,4 +1,4 @@
-package com.alexius.storyvibe.data.local
+package com.alexius.storyvibe.data.pref
 
 import android.content.Context
 import androidx.datastore.core.DataStore

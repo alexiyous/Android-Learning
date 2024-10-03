@@ -8,4 +8,5 @@
     <color name="vivid_teal_dark">#00796B</color>
     //Background color for the app with dark vibe
     <color name="dark_background">#FF121212</color>
+    <color name="light_vivid_teal">#FFB2DFDB</color>
 </resources>

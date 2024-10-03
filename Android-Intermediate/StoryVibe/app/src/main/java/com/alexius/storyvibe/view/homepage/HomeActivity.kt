@@ -138,9 +138,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                // Handle settings action
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+            R.id.action_logout -> {
+                finish()
                 true
             } else -> super.onOptionsItemSelected(item)
         }

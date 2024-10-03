@@ -19,4 +19,5 @@
     <string name="gallery">Gallery</string>
     <string name="tell_your_stories">Tell your Stories</string>
     <string name="upload_your_story">Upload Your Story</string>
+    <string name="log_out">Log out</string>
 </resources>

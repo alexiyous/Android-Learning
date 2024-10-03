@@ -4,10 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.liveData
-import com.alexius.storyvibe.data.local.LoginDatastore
+import com.alexius.storyvibe.data.pref.LoginDatastore
 import com.alexius.storyvibe.data.remote.response.AddStoryResponse
 import com.alexius.storyvibe.data.remote.response.ErrorResponse
 import com.alexius.storyvibe.data.remote.response.LoginResponse
@@ -15,12 +13,10 @@ import com.alexius.storyvibe.data.remote.response.RegisterResponse
 import com.alexius.storyvibe.data.remote.response.StoryResponse
 import com.alexius.storyvibe.data.remote.retrofit.ApiConfig
 import com.alexius.storyvibe.data.remote.retrofit.ApiService
-import com.alexius.storyvibe.di.Injection
 import com.alexius.storyvibe.utils.reduceFileImage
 import com.alexius.storyvibe.utils.uriToFile
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -52,6 +48,8 @@ class Repository private constructor(
             val response = apiService.login(email, password)
             val token = response.loginResult?.token
             datastore.saveLoginToken(token?: "")
+            val tokenFromDatastore = datastore.getLoginToken().first()
+            Log.d("Repository", "Login: $tokenFromDatastore")
             emit(Result.Success(response))
         } catch (e: HttpException) {
             val errorResponse = e.response()?.errorBody()?.string()
@@ -65,6 +63,8 @@ class Repository private constructor(
     fun getAllStories(): LiveData<Result<StoryResponse>> = liveData {
         emit(Result.Loading)
         try {
+            val token = datastore.getLoginToken().first()
+            Log.d("Repository", "GetAllStories: $token")
             val response = apiService.getStories()
             emit(Result.Success(response))
         } catch (e: HttpException) {
@@ -89,8 +89,6 @@ class Repository private constructor(
                     imageFile.name,
                     requestImageFile
                 )
-                val token = datastore.getLoginToken().first()
-                val apiService = ApiConfig.getApiService(token)
                 val successResponse = apiService.uploadStory(multipartBody, requestBody)
                 emit(Result.Success(successResponse))
             }
