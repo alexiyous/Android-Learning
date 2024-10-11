@@ -140,6 +140,11 @@ class HomeActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_logout -> {
                 finish()
+                viewModel.logout().observe(this) {
+                    if (it) {
+                        Toast.makeText(this, "Logout Success", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 true
             } else -> super.onOptionsItemSelected(item)
         }

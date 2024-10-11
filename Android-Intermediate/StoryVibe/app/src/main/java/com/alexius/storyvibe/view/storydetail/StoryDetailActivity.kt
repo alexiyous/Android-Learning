@@ -26,7 +26,7 @@ class StoryDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT))
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.vivid_teal)))
         binding = ActivityStoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -42,6 +42,7 @@ class StoryDetailActivity : AppCompatActivity() {
     private fun setupAction() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
@@ -55,17 +56,19 @@ class StoryDetailActivity : AppCompatActivity() {
         binding.titleTextView.text = storyItem?.name
         binding.contentTextView.text = storyItem?.description
 
-        binding.scrollView.setOnScrollChangeListener{_, _, scrollY, _, oldScrollY->
-            val navigationIcon = binding.toolbar.navigationIcon
-            if (navigationIcon != null) {
-                if (scrollY > oldScrollY) {
-                    navigationIcon.alpha = 0
-                } else if (scrollY < oldScrollY) {
-                    navigationIcon.alpha = 255
-                    Log.d("scroll", "scrolling up")
-                }
-            }
-        }
+
+//        binding.scrollView.setOnScrollChangeListener{_, _, scrollY, _, oldScrollY->
+//            val navigationIcon = binding.toolbar.navigationIcon
+//            if (navigationIcon != null) {
+//                if (scrollY > oldScrollY) {
+//                    navigationIcon.alpha = 0
+//                } else if (scrollY < oldScrollY) {
+//                    if (navigationIcon.alpha == 255) return@setOnScrollChangeListener
+//                    navigationIcon.alpha = 255
+//                    Log.d("scroll", "scrolling up")
+//                }
+//            }
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

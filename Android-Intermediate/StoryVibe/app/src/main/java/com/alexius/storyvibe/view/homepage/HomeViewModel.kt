@@ -6,4 +6,5 @@ import com.alexius.storyvibe.data.Repository
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     fun getAllStories() = repository.getAllStories()
+    fun logout() = repository.logout()
 }

@@ -48,6 +48,7 @@ class Repository private constructor(
             val response = apiService.login(email, password)
             val token = response.loginResult?.token
             datastore.saveLoginToken(token?: "")
+            datastore.saveIsLogin(true)
             val tokenFromDatastore = datastore.getLoginToken().first()
             Log.d("Repository", "Login: $tokenFromDatastore")
             emit(Result.Success(response))
@@ -58,6 +59,16 @@ class Repository private constructor(
             Log.d("Repository", "Login: ${e.response()}")
             emit(Result.Error(errorMessage?:"Error"))
         }
+    }
+
+    fun checkIsLogin(): LiveData<Boolean> = liveData {
+        val isLogin = datastore.getIsLogin().first()
+        emit(isLogin)
+    }
+
+    fun logout(): LiveData<Boolean> = liveData {
+        datastore.saveIsLogin(false)
+        emit(true)
     }
 
     fun getAllStories(): LiveData<Result<StoryResponse>> = liveData {

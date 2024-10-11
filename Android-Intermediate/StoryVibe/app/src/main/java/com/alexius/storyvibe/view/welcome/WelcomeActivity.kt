@@ -9,19 +9,27 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.alexius.storyvibe.R
 import com.alexius.storyvibe.databinding.ActivityWelcomeBinding
+import com.alexius.storyvibe.view.ViewModelFactory
+import com.alexius.storyvibe.view.homepage.HomeActivity
 import com.alexius.storyvibe.view.login.LoginActivity
 import com.alexius.storyvibe.view.signup.SignUpActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
+
+    private val viewModel by viewModels<WelcomeViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +42,23 @@ class WelcomeActivity : AppCompatActivity() {
             insets
         }
 
+        checkIsLogin()
+
         setupAction()
         setupAnimation()
+    }
+
+    private fun checkIsLogin() {
+        viewModel.checkIsLogin().observe(this) { isLogin ->
+            if (isLogin) {
+                val intent = Intent(this, HomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     private fun setupAction() {
