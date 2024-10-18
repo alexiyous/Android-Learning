@@ -18,7 +18,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-
+        // Untuk mengaktifkan fitur export scheme database agar bisa automigration
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
@@ -60,4 +60,10 @@ dependencies {
 
     implementation(libs.androidx.room.ktx)
     ksp(libs.room.compiler)
+
+    // untuk lifecycle livedata ktx
+    implementation(libs.lifecycle.livedata.ktx)
+
+    // untuk paging2
+    implementation(libs.androidx.paging.runtime.ktx)
 }
