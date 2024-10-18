@@ -20,9 +20,36 @@ class QuoteRemoteMediator(
         const val INITIAL_PAGE_INDEX = 1
     }
 
+    /**
+     * This function initializes the `RemoteMediator` to launch an initial refresh.
+     * It returns `InitializeAction.LAUNCH_INITIAL_REFRESH` which indicates that
+     * the `RemoteMediator` should perform an initial load of data when it is first created.
+     *
+     * Use Cases:
+     * - When the app is first launched and the `RemoteMediator` is created, it will
+     *   immediately start loading data from the remote source.
+     * - Useful for ensuring that the app always has the latest data available when
+     *   the user opens it for the first time.
+     * - Helps in scenarios where the local cache might be empty or outdated, ensuring
+     *   that the user sees fresh content.
+     */
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
+
+    /**
+     * Selain itu, juga ada InitializeAction.SKIP_INITIAL_REFRESH untuk melewatkan pemanggilan fungsi refresh ketika Anda tidak menginginkan untuk memperbarui database.
+     *
+     * Anda juga bisa menggabungkan kedua kode tersebut untuk memperbarui data dengan interval tertentu (semisal 1 jam) seperti ini.
+     */
+//    override suspend fun initialize(): InitializeAction {
+//        val cacheTimeout = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+//        return if (System.currentTimeMillis() - database.lastUpdated() >= cacheTimeout) {
+//            InitializeAction.SKIP_INITIAL_REFRESH
+//        } else {
+//            InitializeAction.LAUNCH_INITIAL_REFRESH
+//        }
+//    }
 
     override suspend fun load(
         loadType: LoadType,
