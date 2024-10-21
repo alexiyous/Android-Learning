@@ -2,4 +2,6 @@
     <string name="app_name">MyFirebaseChat</string>
     <string name="sign_out">Sign Out</string>
     <string name="web_client_id">35013629152-tjrjjfcboh4m7e969kr3fg7647fir897.apps.googleusercontent.com</string>
+    <string name="send_success">Berhasil terkirim</string>
+    <string name="send_error">Gagal terkirim</string>
 </resources>
