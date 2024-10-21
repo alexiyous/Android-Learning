@@ -229,7 +229,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
-    //use live template logt to create this
     companion object {
         private const val TAG = "MapsActivity"
     }

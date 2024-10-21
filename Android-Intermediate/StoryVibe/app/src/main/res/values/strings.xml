@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StoryVibe</string>
+    <string name="app_name">Story Vibe</string>
     <string name="signup">Sign Up</string>
     <string name="login">Log In</string>
     <string name="message_welcome_page">Ready to dive into a world of stories? Explore, create, and share your tales with StoryVibe!</string>
@@ -20,4 +20,5 @@
     <string name="tell_your_stories">Tell your Stories</string>
     <string name="upload_your_story">Upload Your Story</string>
     <string name="log_out">Log out</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

@@ -15,10 +15,18 @@
         android:theme="@style/Theme.StoryVibe"
         tools:ignore="DiscouragedApi"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBeWDiVmdMN3jp-q9XAm_7hOfQhvkJmSHQ" />
+
+        <activity
+            android:name=".view.map.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".view.uploadstory.UploadStoryActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.storydetail.StoryDetailActivity"
             android:exported="false" />
@@ -29,13 +37,13 @@
         <activity
             android:name=".view.signup.SignUpActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.welcome.WelcomeActivity"
             android:exported="true"

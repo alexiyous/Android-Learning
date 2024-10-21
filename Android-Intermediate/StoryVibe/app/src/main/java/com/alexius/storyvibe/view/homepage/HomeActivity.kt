@@ -26,6 +26,7 @@ import com.alexius.storyvibe.data.remote.response.ListStoryItem
 import com.alexius.storyvibe.databinding.ActivityHomeBinding
 import com.alexius.storyvibe.databinding.ItemStoryBinding
 import com.alexius.storyvibe.view.ViewModelFactory
+import com.alexius.storyvibe.view.map.MapsActivity
 import com.alexius.storyvibe.view.storydetail.StoryDetailActivity
 import com.alexius.storyvibe.view.uploadstory.UploadStoryActivity
 
@@ -146,7 +147,12 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
                 true
-            } else -> super.onOptionsItemSelected(item)
+            }
+            R.id.action_map -> {
+                startActivity(Intent(this, MapsActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -87,6 +87,22 @@ class Repository private constructor(
         }
     }
 
+    fun getAllStoriesWithLocation(): LiveData<Result<StoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val token = datastore.getLoginToken().first()
+            Log.d("Repository", "GetAllStoriesWithLocation: $token")
+            val response = apiService.getStoriesWithLocation()
+            emit(Result.Success(response))
+        } catch (e: HttpException) {
+            val errorResponse = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(errorResponse, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Log.d("Repository", "GetAllStoriesWithLocation: $errorMessage")
+            emit(Result.Error(errorMessage?:"Error"))
+        }
+    }
+
     fun uploadStory(imageUri: Uri?, context: Context, descriptionText: String): LiveData<Result<AddStoryResponse>> = liveData {
         emit(Result.Loading)
         try {
