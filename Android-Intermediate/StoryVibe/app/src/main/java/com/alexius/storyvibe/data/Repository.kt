@@ -5,9 +5,17 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.alexius.storyvibe.data.pref.LoginDatastore
+import com.alexius.storyvibe.data.remote.paging.StoryPagingSource
 import com.alexius.storyvibe.data.remote.response.AddStoryResponse
 import com.alexius.storyvibe.data.remote.response.ErrorResponse
+import com.alexius.storyvibe.data.remote.response.ListStoryItem
 import com.alexius.storyvibe.data.remote.response.LoginResponse
 import com.alexius.storyvibe.data.remote.response.RegisterResponse
 import com.alexius.storyvibe.data.remote.response.StoryResponse
@@ -85,6 +93,17 @@ class Repository private constructor(
             Log.d("Repository", "GetAllStories: $errorMessage")
             emit(Result.Error(errorMessage?:"Error"))
         }
+    }
+
+    fun getStoryByPager(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     fun getAllStoriesWithLocation(): LiveData<Result<StoryResponse>> = liveData {

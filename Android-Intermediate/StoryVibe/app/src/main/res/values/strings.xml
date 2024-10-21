@@ -21,4 +21,5 @@
     <string name="upload_your_story">Upload Your Story</string>
     <string name="log_out">Log out</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="retry">Retry Again</string>
 </resources>

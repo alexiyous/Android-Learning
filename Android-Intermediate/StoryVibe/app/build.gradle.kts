@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx) //liveData
     implementation(libs.androidx.room.ktx)
 
+    // Paging 3
+    implementation(libs.androidx.paging.runtime.ktx)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

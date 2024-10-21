@@ -22,6 +22,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexius.storyvibe.R
 import com.alexius.storyvibe.data.Result
+import com.alexius.storyvibe.data.remote.paging.LoadingStateAdapter
 import com.alexius.storyvibe.data.remote.response.ListStoryItem
 import com.alexius.storyvibe.databinding.ActivityHomeBinding
 import com.alexius.storyvibe.databinding.ItemStoryBinding
@@ -61,42 +62,54 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        getStories()
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = storyAdapter
-        }
+        getStoriesByPaging()
     }
 
-    private fun getStories() {
-        viewModel.getAllStories().observe(this) { response ->
-            when (response) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    val storyData = response.data
-                    val listStory: List<ListStoryItem?>? = storyData.listStory
-                    if (listStory != null) {
-                        storyAdapter.submitList(listStory) {
-                            binding.recyclerView.scrollToPosition(0)
-                        }
-                    }
-                }
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(
-                        this,
-                        "Error Fetching: " + response.error,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+    private fun getStoriesByPaging() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = storyAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                storyAdapter.retry()
             }
+        )
+        viewModel.getAllStoriesByPager().observe(this) {
+            storyAdapter.submitData(lifecycle, it)
         }
     }
+
+//    private fun getStories() {
+//        viewModel.getAllStories().observe(this) { response ->
+//            when (response) {
+//                is Result.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+//                }
+//                is Result.Success -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    val storyData = response.data
+//                    val listStory: List<ListStoryItem?>? = storyData.listStory
+//                    if (listStory != null) {
+////                        storyAdapter.submitList(listStory) {
+////                            binding.recyclerView.scrollToPosition(0)
+////                        }
+//                    }
+//                }
+//                is Result.Error -> {
+//                    binding.progressBar.visibility = View.GONE
+//                    Toast.makeText(
+//                        this,
+//                        "Error Fetching: " + response.error,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
+//
+//        binding.recyclerView.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            setHasFixedSize(true)
+//            adapter = storyAdapter
+//        }
+//    }
 
     private fun setupAction() {
 
@@ -120,7 +133,7 @@ class HomeActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val isUploaded = result.data?.getBooleanExtra(UploadStoryActivity.IS_UPLOADED, false) ?: false
                 if (isUploaded) {
-                    getStories()
+                    getStoriesByPaging()
                     result.data?.putExtra(UploadStoryActivity.IS_UPLOADED, false) // Reset the value to false
                 }
             }

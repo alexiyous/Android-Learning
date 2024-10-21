@@ -7,4 +7,5 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     fun getAllStories() = repository.getAllStories()
     fun logout() = repository.logout()
+    fun getAllStoriesByPager() = repository.getStoryByPager()
 }

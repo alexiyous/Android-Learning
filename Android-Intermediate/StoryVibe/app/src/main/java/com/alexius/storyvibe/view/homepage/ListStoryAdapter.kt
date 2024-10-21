@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,7 @@ import com.alexius.storyvibe.databinding.ItemStoryBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class ListStoryAdapter : ListAdapter<ListStoryItem, ListStoryAdapter.ListStoryViewHolder>(
+class ListStoryAdapter : PagingDataAdapter<ListStoryItem, ListStoryAdapter.ListStoryViewHolder>(
     DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -33,9 +34,11 @@ class ListStoryAdapter : ListAdapter<ListStoryItem, ListStoryAdapter.ListStoryVi
 
     override fun onBindViewHolder(holder: ListStoryViewHolder, position: Int) {
         val storyItem = getItem(position)
-        holder.bind(storyItem)
-        holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(storyItem, holder.binding)
+        if (storyItem != null) {
+            holder.bind(storyItem)
+            holder.itemView.setOnClickListener {
+                onItemClickCallback.onItemClicked(storyItem, holder.binding)
+            }
         }
     }
 
