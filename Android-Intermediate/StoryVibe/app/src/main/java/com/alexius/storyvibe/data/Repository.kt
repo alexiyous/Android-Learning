@@ -76,6 +76,7 @@ class Repository private constructor(
 
     fun logout(): LiveData<Boolean> = liveData {
         datastore.saveIsLogin(false)
+        datastore.deleteLoginToken()
         emit(true)
     }
 

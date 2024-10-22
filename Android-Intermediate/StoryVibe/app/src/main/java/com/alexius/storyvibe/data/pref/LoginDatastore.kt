@@ -35,6 +35,12 @@ class LoginDatastore private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    suspend fun deleteLoginToken() {
+        dataStore.edit { preferences ->
+            preferences.remove(LOGIN_TOKEN)
+        }
+    }
+
     suspend fun saveIsLogin(isLogin: Boolean) {
         dataStore.edit { preferences ->
             preferences[IS_LOGIN] = isLogin
