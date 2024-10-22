@@ -58,7 +58,6 @@ class Repository private constructor(
             datastore.saveLoginToken(token?: "")
             datastore.saveIsLogin(true)
             val tokenFromDatastore = datastore.getLoginToken().first()
-            Log.d("Repository", "Login: $tokenFromDatastore")
             emit(Result.Success(response))
         } catch (e: HttpException) {
             val errorResponse = e.response()?.errorBody()?.string()
