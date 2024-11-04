@@ -43,13 +43,12 @@ android {
 
 dependencies {
 
-    // library dasar rxjava
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.19")
-// library untuk memudahkan threading di Android
-    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
-
-// opsional : library tambahan dengan tambahan extension function pada Kotlin
-    implementation ("io.reactivex.rxjava2:rxkotlin:2.4.0")
+    // RXJava
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
+    implementation(libs.adapter.rxjava3)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.androidx.lifecycle.reactivestreams.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
