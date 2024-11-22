@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Newsery"
 include(":app")
- 
+include(":core")
+include(":bookmark")
+include(":dynamic_feature_compose")
