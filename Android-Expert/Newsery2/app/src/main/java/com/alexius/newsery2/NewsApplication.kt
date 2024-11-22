@@ -1,8 +1,31 @@
 package com.alexius.newsery2
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.alexius.newsery2.di.databaseModule
+import com.alexius.newsery2.di.networkModule
+import com.alexius.newsery2.di.repositoryModule
+import com.alexius.newsery2.di.useCaseModule
+import com.alexius.newsery2.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
 class NewsApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@NewsApplication)
+            modules(
+                listOf(
+                    databaseModule,
+                    networkModule,
+                    repositoryModule,
+                    useCaseModule,
+                    viewModelModule,
+                )
+            )
+        }
+    }
 }

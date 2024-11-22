@@ -1,12 +1,15 @@
 package com.alexius.newsery2.presentation.news_navigator
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -16,9 +19,9 @@ import com.alexius.newsery2.presentation.news_navigator.components.BottomNavigat
 import com.alexius.newsery2.presentation.news_navigator.components.NewsBottomNavigation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,8 +36,7 @@ import com.alexius.newsery2.presentation.navgraph.Route
 import com.alexius.newsery2.presentation.search.SearchNewsViewModel
 import com.alexius.newsery2.presentation.search.SearchScreen
 import com.alexius.newsery2.R
-import com.alexius.newsery2.presentation.bookmark.BookmarkScreen
-import com.alexius.newsery2.presentation.bookmark.BookmarkViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NewsNavigator(
@@ -49,6 +51,8 @@ fun NewsNavigator(
             BottomNavigationItem(R.drawable.ic_bookmark, "Bookmark")
         )
     }
+
+    var isBookmarkOpened by rememberSaveable { mutableStateOf(false) }
 
     // Line 34 - 45 is configuration for the bottom navigation bar pages to be displayed
     val navController = rememberNavController()
@@ -95,7 +99,7 @@ fun NewsNavigator(
             modifier = modifier.padding(bottom = bottomPadding)
         ) {
             composable(route = Route.HomeScreen.route){
-                val viewModel: HomeViewModel = hiltViewModel()
+                val viewModel: HomeViewModel = koinViewModel()
                 val articles = viewModel.news.collectAsLazyPagingItems()
                 HomeScreen(
                     articles = articles,
@@ -111,7 +115,7 @@ fun NewsNavigator(
             }
 
             composable(route = Route.SearchScreen.route){
-                val viewModel: SearchNewsViewModel = hiltViewModel()
+                val viewModel: SearchNewsViewModel = koinViewModel()
                 val state = viewModel.state.value
                 SearchScreen(
                     state = state,
@@ -122,7 +126,7 @@ fun NewsNavigator(
             }
 
             composable(route = Route.DetailScreen.route){
-                val viewModel: DetailsViewModel = hiltViewModel()
+                val viewModel: DetailsViewModel = koinViewModel()
                 if (viewModel.sideEffect != null) {
                     Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
                     viewModel.onEvent(DetailsEvent.RemoveSideEffect)
@@ -142,13 +146,29 @@ fun NewsNavigator(
             composable(route = Route.BookmarkScreen.route){
                 // BookmarkScreen()
 
-                val viewModel: BookmarkViewModel = hiltViewModel()
+                if (!isBookmarkOpened) {
+                    try {
+                        val uri = Uri.parse("newsery2://bookmark")
+                        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+                        isBookmarkOpened = true
+                    } catch (e: Exception) {
+                        Toast.makeText(context, "Module cannot be installed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                DisposableEffect(Unit) {
+                    onDispose {
+                        isBookmarkOpened = false
+                    }
+                }
+
+             /*   val viewModel: BookmarkViewModel = hiltViewModel()
                 val state = viewModel.state.value
                 BookmarkScreen(
                     state = state,
                     navigateToDetails = { article ->
                         navigateToDetails(navController = navController, article = article)
-                    })
+                    })*/
             }
         }
     }

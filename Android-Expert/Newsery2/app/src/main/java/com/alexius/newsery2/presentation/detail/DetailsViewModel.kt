@@ -3,16 +3,14 @@ package com.alexius.newsery2.presentation.detail
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
 import com.alexius.newsery2.domain.usecases.news.NewsUseCases
 import com.alexius.newsery2.domain.model.Article
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
+
+class DetailsViewModel (
     private val newsUseCases: NewsUseCases
 ): ViewModel() {
 

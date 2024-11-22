@@ -2,6 +2,7 @@ package com.alexius.newsery2.di
 
 import android.app.Application
 import androidx.room.Room
+import com.alexius.newsery.MainViewModel
 import com.alexius.newsery2.data.local.NewsTypeConverter
 import com.alexius.newsery2.data.manager.LocalUserManagerImplementation
 import com.alexius.newsery2.data.remote.NewsApi
@@ -22,76 +23,86 @@ import com.alexius.newsery2.util.Constants.BASE_URL
 import com.alexius.newsery2.util.Constants.NEWS_DATABASE_NAME
 import com.alexius.newsery2.data.local.NewsDao
 import com.alexius.newsery2.data.local.NewsDatabase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import com.alexius.newsery2.presentation.detail.DetailsViewModel
+import com.alexius.newsery2.presentation.home.HomeViewModel
+import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
+import com.alexius.newsery2.presentation.search.SearchNewsViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+import org.koin.dsl.single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object CoreModule {
+val viewModelModule = module{
+    viewModel{ DetailsViewModel(get()) }
+    viewModel{ HomeViewModel(get()) }
+    viewModel{ OnBoardingViewModel(get()) }
+    viewModel{ SearchNewsViewModel(get()) }
+    viewModel{ MainViewModel(get()) }
+}
 
-    @Provides
-    @Singleton
-    fun provideLocalUserManager(
-        application: Application
-    ): LocalUserManager = LocalUserManagerImplementation(application)
+val databaseModule = module{
+    single<LocalUserManager> {
+        LocalUserManagerImplementation(androidContext())
+    }
 
-    @Provides
-    @Singleton
-    fun provideAppEntryUseCases(localUserManager: LocalUserManager) = AppEntryUseCases(
-        readAppEntry = ReadAppEntry(localUserManager),
-        saveAppEntry = SaveAppEntry(localUserManager)
-    )
+    factory {
+        get<NewsDatabase>().newsDao
+    }
 
-    @Provides
-    @Singleton
-    fun provideNewsApi(): NewsApi{
-        return Retrofit.Builder()
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            NewsDatabase::class.java,
+            NEWS_DATABASE_NAME
+        ).addTypeConverter(NewsTypeConverter())
+        .fallbackToDestructiveMigration()
+        .build()
+    }
+}
+
+val networkModule = module{
+    single {
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(NewsApi::class.java)
     }
+}
 
-    @Provides
-    @Singleton
-    fun provideNewsRepository(
-        newsApi: NewsApi,
-        newsDao: NewsDao
-    ): NewsRepository = NewsRepositoryImplementation(newsApi, newsDao)
+val repositoryModule = module{
+    single<NewsRepository> {
+        NewsRepositoryImplementation(
+            get(),
+            get()
+        )
+    }
+}
 
-    @Provides
-    @Singleton
-    fun provideNewsUseCases(newsRepository: NewsRepository, newsDao: NewsDao): NewsUseCases {
-        return NewsUseCases(
-            getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsRepository),
-            deleteArticle = DeleteArticle(newsRepository),
-            selectArticles = SelectArticles(newsRepository),
-            selectArticle = SelectArticle(newsRepository)
+val useCaseModule = module{
+    single {
+        AppEntryUseCases(
+            ReadAppEntry(get()),
+            SaveAppEntry(get())
         )
     }
 
-    @Provides
-    @Singleton
-    fun proviodeNewsDatabase(
-        application: Application
-    ): NewsDatabase{
-        return Room.databaseBuilder(
-            context = application,
-            klass = NewsDatabase::class.java,
-            name = NEWS_DATABASE_NAME
-        ).addTypeConverter(NewsTypeConverter())
-            .fallbackToDestructiveMigration()
-            .build()
+    single {
+        NewsUseCases(
+            GetNews(get()),
+            SearchNews(get()),
+            UpsertArticle(get()),
+            DeleteArticle(get()),
+            SelectArticles(get()),
+            SelectArticle(get())
+        )
     }
-
-    @Provides
-    @Singleton
-    fun provideNewsDao(newsDatabase: NewsDatabase): NewsDao = newsDatabase.newsDao
 }
+
+
+
+
+
+

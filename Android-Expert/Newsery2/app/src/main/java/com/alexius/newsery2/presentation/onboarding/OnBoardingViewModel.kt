@@ -3,12 +3,11 @@ package com.alexius.newsery2.presentation.onboarding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexius.newsery2.domain.usecases.appentry.AppEntryUseCases
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class OnBoardingViewModel @Inject constructor(
+import kotlinx.coroutines.launch
+
+
+class OnBoardingViewModel(
     private val appEntryUseCases: AppEntryUseCases
 ): ViewModel() {
 

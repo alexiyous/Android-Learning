@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,18 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.alexius.newsery.MainViewModel
 import com.alexius.newsery2.presentation.navgraph.NavGraph
 import com.alexius.newsery2.presentation.onboarding.OnBoardingScreen
 import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
 import com.alexius.newsery2.ui.theme.NewseryTheme
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.compose.koinViewModel
 import kotlin.getValue
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
-    val viewModel by viewModels<MainViewModel>()
+    val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +55,7 @@ class MainActivity : ComponentActivity() {
 fun GreetingPreview() {
     NewseryTheme {
         Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-            val viewModel: OnBoardingViewModel = hiltViewModel()
+            val viewModel: OnBoardingViewModel = koinViewModel()
             OnBoardingScreen(
                 event = viewModel::onEvent
             )

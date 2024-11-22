@@ -1,4 +1,4 @@
-package com.alexius.newsery2.presentation.bookmark
+package com.alexius.bookmark.bookmark
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column

@@ -1,29 +1,21 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.test
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.dynamic.feature)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     //Parcelize
     id("kotlin-parcelize")
 }
-
 android {
-    namespace = "com.alexius.newsery2"
+    namespace = "com.alexius.bookmark"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.alexius.newsery2"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val properties = gradleLocalProperties(rootDir, providers = project.providers)
-        buildConfigField("String", "NEWS_API", "\"${properties.getProperty("NEWS_API_TOKEN")}\"")
     }
 
     buildTypes {
@@ -35,6 +27,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -42,49 +35,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
-        buildConfig = true
     }
-    dynamicFeatures += setOf(":bookmark")
 }
 
 dependencies {
-
-    //Splash Screen
-    api(libs.androidx.core.splashscreen)
-
-    //Datastore
-    api (libs.androidx.datastore.preferences)
-
-    //Compose Navigation
-    api (libs.androidx.navigation.compose)
-
-    //Compose Foundation
-    api (libs.androidx.foundation)
-
-    //Compose for cotrolling System Controller (status bar)
-    api (libs.accompanist.systemuicontroller)
-
-    //Retrofit
-    api (libs.retrofit)
-    api (libs.converter.gson)
-
-    //Paging 3
-    api (libs.androidx.paging.runtime)
-    api (libs.androidx.paging.compose)
-
-    //Coil
-    api(libs.coil.compose)
-
-    //Room
-    api (libs.androidx.room.runtime)
-    kapt (libs.androidx.room.compiler)
-    api (libs.androidx.room.ktx)
-
-    api(libs.koin.android)
-    api("io.insert-koin:koin-android:3.4.0")
-    api("io.insert-koin:koin-androidx-compose:3.4.0")
+    implementation(project(":app"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

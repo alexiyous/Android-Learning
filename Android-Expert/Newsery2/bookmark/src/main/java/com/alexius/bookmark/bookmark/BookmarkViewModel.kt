@@ -1,4 +1,4 @@
-package com.alexius.newsery2.presentation.bookmark
+package com.alexius.bookmark.bookmark
 
 
 import androidx.compose.runtime.mutableStateOf
@@ -8,11 +8,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class BookmarkViewModel @Inject constructor(
+
+class BookmarkViewModel (
     private val newsUseCases: NewsUseCases
 ): ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.alexius.newsery2.presentation.bookmark
+package com.alexius.bookmark.bookmark
 
 import com.alexius.newsery2.domain.model.Article
 

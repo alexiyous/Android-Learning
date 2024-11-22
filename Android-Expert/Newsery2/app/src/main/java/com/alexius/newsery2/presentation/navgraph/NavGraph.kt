@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -14,6 +13,7 @@ import com.alexius.newsery2.presentation.onboarding.OnBoardingScreen
 import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.alexius.newsery2.presentation.news_navigator.NewsNavigator
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavGraph(
@@ -33,7 +33,7 @@ fun NavGraph(
             composable(
                 route = Route.OnBoardingScreen.route
             ){
-                val viewModel: OnBoardingViewModel = hiltViewModel()
+                val viewModel: OnBoardingViewModel = koinViewModel()
                 OnBoardingScreen(
                     event = viewModel::onEvent
                 )
