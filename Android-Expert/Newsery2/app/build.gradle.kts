@@ -12,7 +12,7 @@ plugins {
 
 android {
     namespace = "com.alexius.newsery2"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.alexius.newsery2"
