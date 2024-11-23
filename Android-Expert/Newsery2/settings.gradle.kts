@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Newsery2"
 include(":app")
 include(":bookmark")
+include(":core")

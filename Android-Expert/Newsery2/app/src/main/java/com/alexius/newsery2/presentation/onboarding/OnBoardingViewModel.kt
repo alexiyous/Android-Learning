@@ -2,7 +2,7 @@ package com.alexius.newsery2.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexius.newsery2.domain.usecases.appentry.AppEntryUseCases
+import com.alexius.core.domain.usecases.appentry.AppEntryUseCases
 
 import kotlinx.coroutines.launch
 

@@ -18,8 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.alexius.newsery2.R
-import com.alexius.newsery2.util.Dimens.MediumPadding1
-import com.alexius.newsery2.util.Dimens.MediumPadding2
+import com.alexius.core.util.Dimens.MediumPadding1
+import com.alexius.core.util.Dimens.MediumPadding2
 import com.alexius.newsery2.presentation.onboarding.Page
 import com.alexius.newsery2.presentation.onboarding.pages
 import com.alexius.newsery2.ui.theme.NewseryTheme

@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
-import com.alexius.newsery2.domain.usecases.news.NewsUseCases
-import com.alexius.newsery2.domain.model.Article
+import com.alexius.core.domain.usecases.news.NewsUseCases
+import com.alexius.core.domain.model.Article
 import kotlinx.coroutines.launch
 
 

@@ -18,10 +18,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import com.alexius.newsery2.domain.model.Article
-import com.alexius.newsery2.util.Dimens.MediumPadding1
+import com.alexius.core.domain.model.Article
+import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.R
-import com.alexius.newsery2.util.Dimens.ExtraSmallPadding
+import com.alexius.core.util.Dimens.ExtraSmallPadding
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.SearchBar
 import com.alexius.newsery2.presentation.common.TypewriterText

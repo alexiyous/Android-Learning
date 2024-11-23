@@ -18,7 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.alexius.newsery2.util.Dimens.MediumPadding2
+import com.alexius.core.util.Dimens.MediumPadding2
 import com.alexius.newsery2.presentation.common.NewsButton
 import com.alexius.newsery2.presentation.common.NewsTextButton
 import com.alexius.newsery2.presentation.onboarding.components.OnBoardingPage

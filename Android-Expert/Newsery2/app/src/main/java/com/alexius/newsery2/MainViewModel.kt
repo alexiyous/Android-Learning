@@ -6,7 +6,7 @@ import com.alexius.newsery2.presentation.navgraph.Route
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.alexius.newsery2.domain.usecases.appentry.AppEntryUseCases
+import com.alexius.core.domain.usecases.appentry.AppEntryUseCases
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

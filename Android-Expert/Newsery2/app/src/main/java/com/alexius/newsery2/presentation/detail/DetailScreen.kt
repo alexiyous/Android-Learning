@@ -22,10 +22,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.alexius.newsery2.domain.model.Article
-import com.alexius.newsery2.domain.model.Source
-import com.alexius.newsery2.util.Dimens.ArticleImageHeight
-import com.alexius.newsery2.util.Dimens.MediumPadding1
+import com.alexius.core.domain.model.Article
+import com.alexius.core.domain.model.Source
+import com.alexius.core.util.Dimens.ArticleImageHeight
+import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.presentation.detail.components.DetailsTopBar
 import com.alexius.newsery2.R
 import com.alexius.newsery2.ui.theme.NewseryTheme

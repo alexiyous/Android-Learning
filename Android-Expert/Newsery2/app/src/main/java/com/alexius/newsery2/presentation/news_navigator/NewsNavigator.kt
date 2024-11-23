@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.alexius.newsery2.domain.model.Article
+import com.alexius.core.domain.model.Article
 import com.alexius.newsery2.presentation.detail.DetailScreen
 import com.alexius.newsery2.presentation.detail.DetailsEvent
 import com.alexius.newsery2.presentation.detail.DetailsViewModel

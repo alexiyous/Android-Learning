@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.TypewriterText
-import com.alexius.newsery2.util.Dimens.MediumPadding1
-import com.alexius.newsery2.domain.model.Article
+import com.alexius.core.util.Dimens.MediumPadding1
+import com.alexius.core.domain.model.Article
 
 @Composable
 fun BookmarkScreen(

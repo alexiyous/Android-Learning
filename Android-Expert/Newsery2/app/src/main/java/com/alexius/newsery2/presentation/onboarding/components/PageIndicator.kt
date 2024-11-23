@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.alexius.newsery2.util.Dimens.IndicatorSize
+import com.alexius.core.util.Dimens.IndicatorSize
 import com.alexius.newsery2.presentation.onboarding.pages
 import com.alexius.newsery2.ui.theme.BlueGray
 import com.alexius.newsery2.ui.theme.NewseryTheme

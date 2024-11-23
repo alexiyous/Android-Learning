@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.alexius.newsery2.domain.usecases.news.NewsUseCases
+import com.alexius.core.domain.usecases.news.NewsUseCases
 
 
 class SearchNewsViewModel (

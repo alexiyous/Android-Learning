@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.alexius.newsery2.domain.model.Article
-import com.alexius.newsery2.util.Dimens.MediumPadding1
+import com.alexius.core.domain.model.Article
+import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.SearchBar
 

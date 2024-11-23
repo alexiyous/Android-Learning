@@ -1,10 +1,10 @@
 package com.alexius.newsery2
 
 import android.app.Application
-import com.alexius.newsery2.di.databaseModule
-import com.alexius.newsery2.di.networkModule
-import com.alexius.newsery2.di.repositoryModule
-import com.alexius.newsery2.di.useCaseModule
+import com.alexius.core.di.databaseModule
+import com.alexius.core.di.networkModule
+import com.alexius.core.di.repositoryModule
+import com.alexius.core.di.useCaseModule
 import com.alexius.newsery2.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

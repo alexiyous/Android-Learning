@@ -3,7 +3,7 @@ package com.alexius.bookmark.bookmark
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.alexius.newsery2.domain.usecases.news.NewsUseCases
+import com.alexius.core.domain.usecases.news.NewsUseCases
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import androidx.compose.runtime.State

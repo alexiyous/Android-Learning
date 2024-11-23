@@ -1,6 +1,6 @@
 package com.alexius.newsery2.presentation.detail
 
-import com.alexius.newsery2.domain.model.Article
+import com.alexius.core.domain.model.Article
 
 sealed class DetailsEvent() {
 

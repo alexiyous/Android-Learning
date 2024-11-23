@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alexius.newsery2.util.Dimens.ExtraSmallPadding2
-import com.alexius.newsery2.util.Dimens.IconSize
+import com.alexius.core.util.Dimens.ExtraSmallPadding2
+import com.alexius.core.util.Dimens.IconSize
 import com.alexius.newsery2.R
 import com.alexius.newsery2.ui.theme.NewseryTheme
 
