@@ -12,13 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.alexius.core.util.Dimens
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
+import com.alexius.core.domain.model.ArticleModel
 
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
-    articles: List<Article>,
-    onClick: (Article) -> Unit
+    articles: List<ArticleModel>,
+    onClick: (ArticleModel) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -37,8 +38,8 @@ fun ArticlesList(
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
-    articles: LazyPagingItems<Article>,
-    onClick: (Article) -> Unit
+    articles: LazyPagingItems<ArticleModel>,
+    onClick: (ArticleModel) -> Unit
 ) {
 
     val handlePagingResult = handlePagingResult(articles = articles)
@@ -60,7 +61,7 @@ fun ArticlesList(
 @Composable
 fun handlePagingResult(
     modifier: Modifier = Modifier,
-    articles: LazyPagingItems<Article>
+    articles: LazyPagingItems<ArticleModel>
 ): Boolean {
     val loadState = articles.loadState
     val error = when {

@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
 import com.alexius.core.domain.usecases.news.NewsUseCases
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
+import com.alexius.core.domain.model.ArticleModel
+import com.alexius.core.util.DataMapper
 import kotlinx.coroutines.launch
 
 
@@ -55,12 +57,12 @@ class DetailsViewModel (
         }
     }
 
-    private suspend fun upsertArticle(article: Article) {
+    private suspend fun upsertArticle(article: ArticleModel) {
         newsUseCases.upsertArticle(article)
         sideEffect = "Article saved"
     }
 
-    private suspend fun deleteArticle(article: Article) {
+    private suspend fun deleteArticle(article: ArticleModel) {
         newsUseCases.deleteArticle(article)
         sideEffect = "Article removed"
     }

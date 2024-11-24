@@ -2,7 +2,7 @@ package com.alexius.core.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
 
 class SearchNewsPagingSource(
     private val newsApi: NewsApi,

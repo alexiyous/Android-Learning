@@ -1,5 +1,6 @@
 package com.alexius.newsery
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.alexius.newsery2.presentation.navgraph.Route
@@ -28,6 +29,7 @@ class MainViewModel(
             } else {
                 startDestination = Route.AppStartNavigation.route
             }
+            Log.d("MainViewModel", "startDestination: $startDestination")
             delay(300)
             splashCondition = false
         }.launchIn(viewModelScope)

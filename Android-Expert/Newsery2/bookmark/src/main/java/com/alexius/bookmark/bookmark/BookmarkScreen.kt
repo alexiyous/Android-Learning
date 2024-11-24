@@ -16,13 +16,14 @@ import androidx.compose.ui.unit.sp
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.TypewriterText
 import com.alexius.core.util.Dimens.MediumPadding1
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
+import com.alexius.core.domain.model.ArticleModel
 
 @Composable
 fun BookmarkScreen(
     modifier: Modifier = Modifier.Companion,
     state: BookmarkState,
-    navigateToDetails: (Article) -> Unit,
+    navigateToDetails: (ArticleModel) -> Unit,
 ){
     Column(
         modifier = modifier

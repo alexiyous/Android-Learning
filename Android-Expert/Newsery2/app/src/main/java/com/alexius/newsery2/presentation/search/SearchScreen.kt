@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
+import com.alexius.core.domain.model.ArticleModel
 import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.SearchBar
@@ -19,7 +20,7 @@ fun SearchScreen (
     modifier: Modifier = Modifier,
     event:(SearchEvent) -> Unit,
     state: SearchState,
-    navigateToDetails:(Article) -> Unit
+    navigateToDetails:(ArticleModel) -> Unit
 ) {
     Column(
         modifier = modifier

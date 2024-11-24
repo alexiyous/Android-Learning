@@ -18,7 +18,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import com.alexius.core.domain.model.Article
+import com.alexius.core.domain.model.ArticleModel
 import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.R
 import com.alexius.core.util.Dimens.ExtraSmallPadding
@@ -29,9 +29,9 @@ import com.alexius.newsery2.presentation.common.TypewriterText
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    articles: LazyPagingItems<Article>,
+    articles: LazyPagingItems<ArticleModel>,
     navigateToSearch: () -> Unit,
-    navigateToDetails:(Article) -> Unit
+    navigateToDetails:(ArticleModel) -> Unit
 ) {
     val titles = remember {
         derivedStateOf {

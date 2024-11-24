@@ -15,8 +15,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource.Companion.SideEffect
@@ -25,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.alexius.newsery2.R
 import com.alexius.newsery2.ui.theme.NewseryTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,11 +42,9 @@ fun DetailsTopBar(
     isBookmarked: Boolean = false,
 ){
 
-
-
-
     val isBookmarked = remember { mutableStateOf(isBookmarked) }
 
+    val lastIsBookmarked = remember { mutableStateOf(false) }
 
     TopAppBar(
         title = {},
@@ -65,6 +67,7 @@ fun DetailsTopBar(
                 onBookmarkClick.invoke()
                 isBookmarked.value = !isBookmarked.value
             }) {
+
                 Icon(
                     painter = if (isBookmarked.value) {
                         painterResource(id = R.drawable.ic_bookmark_fill)

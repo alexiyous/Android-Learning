@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.alexius.core.domain.model.Article
-import com.alexius.core.domain.model.Source
+import com.alexius.core.domain.model.ArticleModel
+import com.alexius.core.domain.model.SourceModel
 import com.alexius.core.util.Dimens.ArticleImageHeight
 import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.presentation.detail.components.DetailsTopBar
@@ -33,13 +33,13 @@ import com.alexius.newsery2.ui.theme.NewseryTheme
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    article: Article,
+    article: ArticleModel,
     event: (DetailsEvent) -> Unit,
     navigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
 
-    val isBookmarked = article.isBookmarked
+    var isBookmarked =  article.isBookmarked
 
     Column(modifier = modifier
         .fillMaxSize()
@@ -119,7 +119,7 @@ fun DetailScreen(
 private fun DetailScreenPreview() {
     NewseryTheme {
         DetailScreen(
-            article = Article(
+            article = ArticleModel(
                 author = "Lucas",
                 title = "The ESP32 and LSTM Neural Networks for Time Series Prediction",
                 description = "ESP32 and LSTM Neural Networks for Time Series Prediction with Arduino IDE",
@@ -127,7 +127,7 @@ private fun DetailScreenPreview() {
                 urlToImage = "https://res.cloudinary.com/dltmvmpuz/image/upload/f_auto/c_limit,w_900/eq.com/storage/01J3389HVXXAAMVAAT11D5W7P2.png?_a=BAAAV6DQ",
                 publishedAt = "2021-01-01",
                 content = "ESP32 and LSTM Neural Networks for Time Series Prediction with Arduino IDE",
-                source = Source(
+                source = SourceModel(
                     id = "id",
                     name = "Name"
                 ),

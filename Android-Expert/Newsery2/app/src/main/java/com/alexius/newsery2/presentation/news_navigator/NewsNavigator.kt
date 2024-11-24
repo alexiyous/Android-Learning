@@ -26,7 +26,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.alexius.core.domain.model.Article
+import com.alexius.core.data.remote.response.Article
+import com.alexius.core.domain.model.ArticleModel
 import com.alexius.newsery2.presentation.detail.DetailScreen
 import com.alexius.newsery2.presentation.detail.DetailsEvent
 import com.alexius.newsery2.presentation.detail.DetailsViewModel
@@ -37,6 +38,7 @@ import com.alexius.newsery2.presentation.search.SearchNewsViewModel
 import com.alexius.newsery2.presentation.search.SearchScreen
 import com.alexius.newsery2.R
 import org.koin.androidx.compose.koinViewModel
+
 
 @Composable
 fun NewsNavigator(
@@ -131,9 +133,12 @@ fun NewsNavigator(
                     Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
                     viewModel.onEvent(DetailsEvent.RemoveSideEffect)
                 }
-                navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
+                navController.previousBackStackEntry?.savedStateHandle?.get<ArticleModel>("article")
                     ?.let {article ->
                         Log.d("NewsNavigator", "Article: $article")
+
+                        viewModel.onEvent(DetailsEvent.IsArticleInDatabase(article))
+
                         DetailScreen(
                             article = article,
                             event = viewModel::onEvent,
@@ -193,7 +198,7 @@ private fun navigateToTap(navController: NavController, route: String) {
 
 
 // Current Back Stack Entry is the current page that is displayed on the screen
-private fun navigateToDetails(navController: NavController, article: Article) {
+fun navigateToDetails(navController: NavController, article: ArticleModel) {
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(Route.DetailScreen.route)
 }
