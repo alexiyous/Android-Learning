@@ -51,6 +51,9 @@ class DetailsViewModel (
                     if (article == null) {
                         Log.d("DetailsViewModel", "Article not in database")
                         event.article.isBookmarked = false
+                    } else {
+                        Log.d("DetailsViewModel", "Article in database")
+                        event.article.isBookmarked = article.isBookmarked
                     }
                 }
             }

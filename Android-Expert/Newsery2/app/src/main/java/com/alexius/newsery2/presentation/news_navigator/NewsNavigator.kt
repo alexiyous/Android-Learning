@@ -9,34 +9,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.alexius.newsery2.presentation.news_navigator.components.BottomNavigationItem
-import com.alexius.newsery2.presentation.news_navigator.components.NewsBottomNavigation
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
+import com.alexius.newsery2.R
 import com.alexius.newsery2.presentation.detail.DetailScreen
 import com.alexius.newsery2.presentation.detail.DetailsEvent
 import com.alexius.newsery2.presentation.detail.DetailsViewModel
 import com.alexius.newsery2.presentation.home.HomeScreen
 import com.alexius.newsery2.presentation.home.HomeViewModel
 import com.alexius.newsery2.presentation.navgraph.Route
+import com.alexius.newsery2.presentation.news_navigator.components.BottomNavigationItem
+import com.alexius.newsery2.presentation.news_navigator.components.NewsBottomNavigation
 import com.alexius.newsery2.presentation.search.SearchNewsViewModel
 import com.alexius.newsery2.presentation.search.SearchScreen
-import com.alexius.newsery2.R
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -44,7 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 fun NewsNavigator(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current
-    ) {
+) {
 
     val bottomNavigationItems = remember() {
         listOf(
@@ -53,6 +54,8 @@ fun NewsNavigator(
             BottomNavigationItem(R.drawable.ic_bookmark, "Bookmark")
         )
     }
+
+    val scope = rememberCoroutineScope()
 
     var isBookmarkOpened by rememberSaveable { mutableStateOf(false) }
 
@@ -100,23 +103,27 @@ fun NewsNavigator(
             startDestination = Route.HomeScreen.route,
             modifier = modifier.padding(bottom = bottomPadding)
         ) {
-            composable(route = Route.HomeScreen.route){
+            composable(route = Route.HomeScreen.route) {
                 val viewModel: HomeViewModel = koinViewModel()
                 val articles = viewModel.news.collectAsLazyPagingItems()
                 HomeScreen(
                     articles = articles,
                     navigateToSearch = {
-                        navigateToTap(navController = navController, route = Route.SearchScreen.route)
+                        navigateToTap(
+                            navController = navController,
+                            route = Route.SearchScreen.route
+                        )
                     },
-                    navigateToDetails = {article ->
+                    navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = article)
+                            article = article
+                        )
                     }
                 )
             }
 
-            composable(route = Route.SearchScreen.route){
+            composable(route = Route.SearchScreen.route) {
                 val viewModel: SearchNewsViewModel = koinViewModel()
                 val state = viewModel.state.value
                 SearchScreen(
@@ -127,28 +134,46 @@ fun NewsNavigator(
                     })
             }
 
-            composable(route = Route.DetailScreen.route){
+            composable(route = Route.DetailScreen.route) {
                 val viewModel: DetailsViewModel = koinViewModel()
                 if (viewModel.sideEffect != null) {
-                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(LocalContext.current, viewModel.sideEffect, Toast.LENGTH_SHORT)
+                        .show()
                     viewModel.onEvent(DetailsEvent.RemoveSideEffect)
                 }
                 navController.previousBackStackEntry?.savedStateHandle?.get<ArticleModel>("article")
-                    ?.let {article ->
+                    ?.let { article ->
                         Log.d("NewsNavigator", "Article: $article")
 
-                        viewModel.onEvent(DetailsEvent.IsArticleInDatabase(article))
+                        // State to control whether DetailScreen is displayed
+                        var showDetailScreen by remember { mutableStateOf(false) }
 
-                        DetailScreen(
-                            article = article,
-                            event = viewModel::onEvent,
-                            navigateUp = {
-                                navController.navigateUp()
-                            })
+                        // Launch effect to handle the delay and change the state
+                        LaunchedEffect(article) {
+                            // Call your event that might take some time
+                            viewModel.onEvent(DetailsEvent.IsArticleInDatabase(article))
+
+                            // Add a slight delay before navigating to DetailScreen
+                            delay(100)  // Adjust the delay time as needed
+
+                            // After the delay, change the state to show the DetailScreen
+                            showDetailScreen = true
+                        }
+
+                        // Conditionally show DetailScreen after delay
+                        if (showDetailScreen) {
+                            DetailScreen(
+                                article = article,
+                                event = viewModel::onEvent,
+                                navigateUp = {
+                                    navController.navigateUp()
+                                }
+                            )
+                        }
                     }
 
             }
-            composable(route = Route.BookmarkScreen.route){
+            composable(route = Route.BookmarkScreen.route) {
                 // BookmarkScreen()
 
                 if (!isBookmarkOpened) {
@@ -157,23 +182,22 @@ fun NewsNavigator(
                         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
                         isBookmarkOpened = true
                     } catch (e: Exception) {
-                        Toast.makeText(context, "Module cannot be installed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Module cannot be installed", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
 
-                DisposableEffect(Unit) {
-                    onDispose {
-                        isBookmarkOpened = false
-                    }
+                LaunchedEffect(Unit) {
+                    isBookmarkOpened = false
                 }
 
-             /*   val viewModel: BookmarkViewModel = hiltViewModel()
-                val state = viewModel.state.value
-                BookmarkScreen(
-                    state = state,
-                    navigateToDetails = { article ->
-                        navigateToDetails(navController = navController, article = article)
-                    })*/
+                /*   val viewModel: BookmarkViewModel = hiltViewModel()
+                   val state = viewModel.state.value
+                   BookmarkScreen(
+                       state = state,
+                       navigateToDetails = { article ->
+                           navigateToDetails(navController = navController, article = article)
+                       })*/
             }
         }
     }
@@ -183,7 +207,7 @@ fun NewsNavigator(
  * Navigate to the selected tab in the bottom navigation bar when user taps on it
  */
 private fun navigateToTap(navController: NavController, route: String) {
-    navController.navigate(route){
+    navController.navigate(route) {
         navController.graph.startDestinationRoute?.let { homeScreen ->
             popUpTo(homeScreen) {
                 saveState = true

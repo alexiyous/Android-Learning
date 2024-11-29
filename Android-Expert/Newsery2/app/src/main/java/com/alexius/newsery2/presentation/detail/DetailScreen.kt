@@ -2,6 +2,7 @@ package com.alexius.newsery2.presentation.detail
 
 import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -41,6 +42,8 @@ fun DetailScreen(
 
     var isBookmarked =  article.isBookmarked
 
+    Log.d("DetailScreen", "isBookmarked: $isBookmarked")
+
     Column(modifier = modifier
         .fillMaxSize()
         .statusBarsPadding()
@@ -72,7 +75,7 @@ fun DetailScreen(
             onBackClick = {
                 navigateUp()
             },
-            compareToDatabase = {event(DetailsEvent.IsArticleInDatabase(article))},
+            compareToDatabase = {}
         )
 
         LazyColumn(
