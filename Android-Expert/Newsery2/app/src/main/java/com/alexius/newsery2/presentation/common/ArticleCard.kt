@@ -24,9 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.alexius.core.data.remote.response.Source
 import com.alexius.core.util.Dimens
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
 import com.alexius.newsery2.R
 

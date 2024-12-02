@@ -1,10 +1,11 @@
 package com.alexius.core.data.remote.response
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.google.gson.annotations.SerializedName
 
 
 data class Source(
+    @field:SerializedName("id")
     val id: String,
+    @field:SerializedName("name")
     val name: String
 )

@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.alexius.core.data.local.entity.ArticleEntity
 import com.alexius.core.util.NewsTypeConverter
 
-@Database(entities = [ArticleEntity::class], version = 4)
+@Database(entities = [ArticleEntity::class], version = 5)
 @TypeConverters(NewsTypeConverter::class)
 abstract class NewsDatabase: RoomDatabase() {
 

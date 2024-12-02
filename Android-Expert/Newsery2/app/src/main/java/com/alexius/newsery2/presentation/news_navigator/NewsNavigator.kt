@@ -47,7 +47,7 @@ fun NewsNavigator(
     context: Context = LocalContext.current
 ) {
 
-    val bottomNavigationItems = remember() {
+    val bottomNavigationItems = remember {
         listOf(
             BottomNavigationItem(R.drawable.ic_home, "Home"),
             BottomNavigationItem(R.drawable.ic_search, "Search"),
@@ -55,9 +55,9 @@ fun NewsNavigator(
         )
     }
 
-    val scope = rememberCoroutineScope()
+    rememberCoroutineScope()
 
-    var isBookmarkOpened by rememberSaveable { mutableStateOf(false) }
+    var isBookmarkOpened by remember { mutableStateOf(false) }
 
     // Line 34 - 45 is configuration for the bottom navigation bar pages to be displayed
     val navController = rememberNavController()
@@ -176,11 +176,15 @@ fun NewsNavigator(
             composable(route = Route.BookmarkScreen.route) {
                 // BookmarkScreen()
 
+                Log.d("NewsNavigator", "BookmarkScreen: $isBookmarkOpened")
                 if (!isBookmarkOpened) {
                     try {
-                        val uri = Uri.parse("newsery2://bookmark")
-                        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
                         isBookmarkOpened = true
+                        val uri = Uri.parse("newsery2://bookmark")
+                        val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+                            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        }
+                        context.startActivity(intent)
                     } catch (e: Exception) {
                         Toast.makeText(context, "Module cannot be installed", Toast.LENGTH_SHORT)
                             .show()
@@ -188,16 +192,9 @@ fun NewsNavigator(
                 }
 
                 LaunchedEffect(Unit) {
+                    delay(100)
                     isBookmarkOpened = false
                 }
-
-                /*   val viewModel: BookmarkViewModel = hiltViewModel()
-                   val state = viewModel.state.value
-                   BookmarkScreen(
-                       state = state,
-                       navigateToDetails = { article ->
-                           navigateToDetails(navController = navController, article = article)
-                       })*/
             }
         }
     }

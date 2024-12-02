@@ -3,7 +3,6 @@ package com.alexius.core.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.alexius.core.data.remote.response.Source
 
 @Entity(tableName = "Article")
 data class ArticleEntity(

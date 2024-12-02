@@ -5,11 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.alexius.core.data.local.NewsDao
-import com.alexius.core.data.local.entity.ArticleEntity
 import com.alexius.core.data.remote.NewsApi
 import com.alexius.core.data.remote.NewsPagingSource
 import com.alexius.core.data.remote.SearchNewsPagingSource
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
 import com.alexius.core.domain.model.SourceModel
 import com.alexius.core.domain.repository.NewsRepository

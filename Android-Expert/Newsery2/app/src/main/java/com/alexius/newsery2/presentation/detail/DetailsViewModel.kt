@@ -1,14 +1,12 @@
 package com.alexius.newsery2.presentation.detail
 
 import android.util.Log
+import androidx.compose.runtime.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
-import com.alexius.core.domain.usecases.news.NewsUseCases
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
-import com.alexius.core.util.DataMapper
+import com.alexius.core.domain.usecases.news.NewsUseCases
 import kotlinx.coroutines.launch
 
 

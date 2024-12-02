@@ -1,6 +1,5 @@
 package com.alexius.newsery2.presentation.navgraph
 
-import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -10,10 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.alexius.newsery2.presentation.news_navigator.NewsNavigator
 import com.alexius.newsery2.presentation.onboarding.OnBoardingScreen
 import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.alexius.newsery2.presentation.news_navigator.NewsNavigator
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

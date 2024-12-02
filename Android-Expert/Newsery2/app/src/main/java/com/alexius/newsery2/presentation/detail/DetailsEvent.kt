@@ -1,6 +1,5 @@
 package com.alexius.newsery2.presentation.detail
 
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
 
 sealed class DetailsEvent() {

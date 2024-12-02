@@ -11,9 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.alexius.core.util.Dimens
-import com.alexius.core.data.remote.response.Article
 import com.alexius.core.domain.model.ArticleModel
+import com.alexius.core.util.Dimens
 
 @Composable
 fun ArticlesList(

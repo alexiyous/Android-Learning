@@ -45,7 +45,7 @@ class BookmarkActivity() : ComponentActivity() {
             NewseryTheme {
                 val state = viewModel.state.value
 
-                val context = LocalContext.current
+                LocalContext.current
 
 
                 val isSystemInDarkMode = isSystemInDarkTheme()
@@ -67,7 +67,6 @@ class BookmarkActivity() : ComponentActivity() {
                     )
                     {
                         composable("bookmark") {
-                            val viewModel: BookmarkViewModel = koinViewModel()
                             BookmarkScreen(
                                 state = state,
                                 navigateToDetails = { article ->
@@ -75,15 +74,6 @@ class BookmarkActivity() : ComponentActivity() {
                                     articleTemp = article
 
                                     navController.navigate(Route.DetailScreen.route)
-
-                                    /*Intent(Intent.ACTION_VIEW).also {
-                                        it.data = article.url.toUri()
-                                        *//* Check if there is an app that can handle the intent *//*
-                                        *//* Must add queries in the android manifest, see manifest *//*
-                                        if (it.resolveActivity(context.packageManager) != null) {
-                                            context.startActivity(it)
-                                        }
-                                    }*/
 
                                 }
                             )

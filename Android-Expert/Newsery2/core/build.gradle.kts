@@ -47,6 +47,10 @@ android {
 
 dependencies {
 
+    //SQL Cipher
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
+
     //Splash Screen
     api(libs.androidx.core.splashscreen)
 
@@ -66,6 +70,9 @@ dependencies {
     api (libs.retrofit)
     api (libs.converter.gson)
 
+    //OkHttp Logging Interceptor
+    implementation(libs.logging.interceptor)
+
     //Paging 3
     api (libs.androidx.paging.runtime)
     api (libs.androidx.paging.compose)
@@ -79,7 +86,6 @@ dependencies {
     api (libs.androidx.room.ktx)
 
     api(libs.koin.android)
-    api("io.insert-koin:koin-android:3.4.0")
-    api("io.insert-koin:koin-androidx-compose:3.4.0")
+    api(libs.koin.androidx.compose)
 
 }

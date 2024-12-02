@@ -1,7 +1,6 @@
 package com.alexius.core.domain.model
 
 import android.os.Parcelable
-import com.alexius.core.data.remote.response.Source
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

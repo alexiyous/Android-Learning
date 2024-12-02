@@ -7,17 +7,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.alexius.core.domain.model.ArticleModel
+import com.alexius.core.util.Dimens.MediumPadding1
 import com.alexius.newsery2.presentation.common.ArticlesList
 import com.alexius.newsery2.presentation.common.TypewriterText
-import com.alexius.core.util.Dimens.MediumPadding1
-import com.alexius.core.data.remote.response.Article
-import com.alexius.core.domain.model.ArticleModel
 
 @Composable
 fun BookmarkScreen(

@@ -1,5 +1,4 @@
 import org.gradle.kotlin.dsl.android
-import org.gradle.kotlin.dsl.test
 
 plugins {
     alias(libs.plugins.android.dynamic.feature)

@@ -22,7 +22,7 @@ class LocalUserManagerImplementation(
 
     override fun readAppEntry(): Flow<Boolean> {
         return context.dataStore.data.map { settings ->
-            settings[PreferencesKeys.APP_ENTRY] ?: false
+            settings[PreferencesKeys.APP_ENTRY] == true
         }
     }
 }

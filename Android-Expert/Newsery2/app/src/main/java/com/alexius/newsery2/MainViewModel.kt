@@ -1,4 +1,4 @@
-package com.alexius.newsery
+package com.alexius.newsery2
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -24,10 +24,10 @@ class MainViewModel(
 
     init {
         appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
-            if (shouldStartFromHomeScreen) {
-                startDestination = Route.NewsNavigation.route
+            startDestination = if(shouldStartFromHomeScreen) {
+                Route.NewsNavigation.route
             } else {
-                startDestination = Route.AppStartNavigation.route
+                Route.AppStartNavigation.route
             }
             Log.d("MainViewModel", "startDestination: $startDestination")
             delay(300)

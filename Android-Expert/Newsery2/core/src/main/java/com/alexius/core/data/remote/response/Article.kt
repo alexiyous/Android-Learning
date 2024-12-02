@@ -1,20 +1,22 @@
 package com.alexius.core.data.remote.response
 
-import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
+import com.google.gson.annotations.SerializedName
 
 data class Article(
+    @field:SerializedName("author")
     val author: String?,
+    @field:SerializedName("content")
     val content: String,
+    @field:SerializedName("description")
     val description: String,
+    @field:SerializedName("publishedAt")
     val publishedAt: String,
-    // Since Source is an object and room database could
-    // not store object, we need to convert it to string (See NewsTypeConverter.kt)
+    @field:SerializedName("source")
     val source: Source,
+    @field:SerializedName("title")
     val title: String,
+    @field:SerializedName("url")
     val url: String,
-    val urlToImage: String,
-    var isBookmarked: Boolean = false
+    @field:SerializedName("urlToImage")
+    val urlToImage: String
 )
