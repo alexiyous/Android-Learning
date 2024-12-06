@@ -17,6 +17,14 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,12 +35,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.alexius.jetcoffee.model.BottomBarItem
 import com.alexius.jetcoffee.model.Menu
 import com.alexius.jetcoffee.model.dummyBestSellerMenu
 import com.alexius.jetcoffee.model.dummyCategory
 import com.alexius.jetcoffee.model.dummyMenu
 import com.alexius.jetcoffee.ui.theme.JetCoffeeTheme
 import com.alexius.jetcoffee.ui.theme.components.CategoryItem
+import com.alexius.jetcoffee.ui.theme.components.HomeSection
 import com.alexius.jetcoffee.ui.theme.components.MenuItem
 import com.alexius.jetcoffee.ui.theme.components.Search
 import com.alexius.jetcoffee.ui.theme.components.SectionText
@@ -52,19 +62,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun JetCoffeeApp() {
-    Column(modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .fillMaxSize()
-    ) {
-        Banner()
-        SectionText(title = stringResource(id = R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
-        Spacer(modifier = Modifier.height(16.dp))
+fun JetCoffeeApp(modifier: Modifier = Modifier) {
+    Scaffold(
+        bottomBar = { BottomBar() }
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
+        ) {
+            Banner()
+            HomeSection(
+                title = stringResource(R.string.section_category),
+                content = { CategoryRow() }
+            )
+            HomeSection(
+                title = stringResource(R.string.section_favorite_menu),
+                content = { MenuRow(dummyMenu) }
+            )
+            HomeSection(
+                title = stringResource(R.string.section_best_seller_menu),
+                content = { MenuRow(dummyBestSellerMenu) }
+            )
+        }
     }
 }
 
@@ -109,6 +129,46 @@ fun CategoryRow(
     ) {
         items(items = dummyCategory, key = { it.textCategory }) { category ->
             CategoryItem(category = category)
+        }
+    }
+}
+
+@Composable
+fun BottomBar(
+    modifier: Modifier = Modifier
+) {
+    NavigationBar(
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.background
+    ) {
+        val navigationItems = listOf(
+            BottomBarItem(
+                title = stringResource(R.string.menu_home),
+                icon = Icons.Default.Home
+            ),
+            BottomBarItem(
+                title = stringResource(R.string.menu_favorite),
+                icon = Icons.Default.Favorite
+            ),
+            BottomBarItem(
+                title = stringResource(R.string.menu_profile),
+                icon = Icons.Default.AccountCircle
+            ),
+        )
+        navigationItems.map {
+            NavigationBarItem(
+                icon = {
+                    Icon(
+                        imageVector = it.icon,
+                        contentDescription = it.title
+                    )
+                },
+                label = {
+                    Text(it.title)
+                },
+                selected = it.title == navigationItems[0].title,
+                onClick = {}
+            )
         }
     }
 }
