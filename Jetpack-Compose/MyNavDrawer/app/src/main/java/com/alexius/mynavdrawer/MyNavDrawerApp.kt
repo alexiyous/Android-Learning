@@ -173,6 +173,7 @@ fun BackPressHandler(enabled: Boolean = true, onBackPressed: () -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner, backDispatcher) {
         backDispatcher.addCallback(lifecycleOwner, backCallback)
+        Log.d("BackPressHandler", "addCallback")
         onDispose {
             backCallback.remove()
         }

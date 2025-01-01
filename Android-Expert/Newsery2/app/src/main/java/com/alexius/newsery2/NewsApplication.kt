@@ -2,6 +2,7 @@ package com.alexius.newsery2
 
 import android.app.Application
 import com.alexius.core.di.databaseModule
+import com.alexius.core.di.huggingFaceModule
 import com.alexius.core.di.networkModule
 import com.alexius.core.di.repositoryModule
 import com.alexius.core.di.useCaseModule
@@ -24,6 +25,7 @@ class NewsApplication: Application() {
                     repositoryModule,
                     useCaseModule,
                     viewModelModule,
+                    huggingFaceModule
                 )
             )
         }

@@ -21,6 +21,7 @@ android {
 
         val properties = gradleLocalProperties(rootDir, providers = project.providers)
         buildConfigField("String", "NEWS_API", "\"${properties.getProperty("NEWS_API_TOKEN")}\"")
+        buildConfigField("String", "HUGGINGFACE_API", "\"${properties.getProperty("HUGGINGFACE_TOKEN")}\"")
     }
 
     buildTypes {

@@ -5,6 +5,7 @@ import com.alexius.core.BuildConfig
 import com.alexius.core.data.local.NewsDatabase
 import com.alexius.core.data.manager.LocalUserManagerImplementation
 import com.alexius.core.data.remote.NewsApi
+import com.alexius.core.data.remote.huggingface.HuggingFaceAPI
 import com.alexius.core.data.repository.NewsRepositoryImplementation
 import com.alexius.core.domain.manager.LocalUserManager
 import com.alexius.core.domain.repository.NewsRepository
@@ -19,6 +20,8 @@ import com.alexius.core.domain.usecases.news.SelectArticle
 import com.alexius.core.domain.usecases.news.SelectArticles
 import com.alexius.core.domain.usecases.news.UpsertArticle
 import com.alexius.core.util.Constants.BASE_URL
+import com.alexius.core.util.Constants.HUGGINGFACE_API_KEY
+import com.alexius.core.util.Constants.HUGGINGFACE_BASE_URL
 import com.alexius.core.util.Constants.NEWS_DATABASE_NAME
 import com.alexius.core.util.NewsTypeConverter
 import net.sqlcipher.database.SQLiteDatabase
@@ -27,6 +30,7 @@ import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -82,6 +86,27 @@ val networkModule = module{
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(NewsApi::class.java)
+    }
+}
+
+val huggingFaceModule: Module = module{
+    single {
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", "Bearer $HUGGINGFACE_API_KEY")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(HUGGINGFACE_BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api: HuggingFaceAPI = retrofit.create(HuggingFaceAPI::class.java)
     }
 }
 

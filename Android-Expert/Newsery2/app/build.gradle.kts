@@ -52,6 +52,8 @@ dependencies {
 
     api(project(":core"))
 
+    implementation("androidx.compose.material:material-icons-extended:1.7.6")
+
     //Resolve error-prone annotations
     implementation (libs.error.prone.annotations)
 

@@ -3,6 +3,7 @@ package com.alexius.newsery2.di
 import com.alexius.newsery2.MainViewModel
 import com.alexius.newsery2.presentation.detail.DetailsViewModel
 import com.alexius.newsery2.presentation.home.HomeViewModel
+import com.alexius.newsery2.presentation.huggingface.BarkViewModel
 import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
 import com.alexius.newsery2.presentation.search.SearchNewsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,4 +15,5 @@ val viewModelModule = module{
     viewModel{ OnBoardingViewModel(get()) }
     viewModel{ SearchNewsViewModel(get()) }
     viewModel{ MainViewModel(get()) }
+    viewModel{ BarkViewModel(get()) }
 }
