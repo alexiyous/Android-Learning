@@ -12,6 +12,7 @@ import com.alexius.core.domain.repository.NewsRepository
 import com.alexius.core.domain.usecases.appentry.AppEntryUseCases
 import com.alexius.core.domain.usecases.appentry.ReadAppEntry
 import com.alexius.core.domain.usecases.appentry.SaveAppEntry
+import com.alexius.core.domain.usecases.huggingface.GenerateSound
 import com.alexius.core.domain.usecases.news.DeleteArticle
 import com.alexius.core.domain.usecases.news.GetNews
 import com.alexius.core.domain.usecases.news.NewsUseCases
@@ -89,24 +90,20 @@ val networkModule = module{
     }
 }
 
-val huggingFaceModule: Module = module{
+val huggingFaceModule = module{
     single {
         val client = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer $HUGGINGFACE_API_KEY")
-                    .build()
-                chain.proceed(request)
-            }
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             .build()
 
-        val retrofit = Retrofit.Builder()
+        Retrofit.Builder()
             .baseUrl(HUGGINGFACE_BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        val api: HuggingFaceAPI = retrofit.create(HuggingFaceAPI::class.java)
+            .create(HuggingFaceAPI::class.java)
     }
 }
 
@@ -136,6 +133,10 @@ val useCaseModule = module{
             SelectArticles(get()),
             SelectArticle(get())
         )
+    }
+
+    single{
+        GenerateSound(get())
     }
 }
 

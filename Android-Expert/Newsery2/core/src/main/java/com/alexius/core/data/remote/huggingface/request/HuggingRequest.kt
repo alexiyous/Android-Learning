@@ -1,10 +1,12 @@
 package com.alexius.core.data.remote.huggingface.request
 
-data class BarkRequest(
-    val inputs: String,
-    val parameters: Parameters = Parameters()
+data class TextToSpeechRequest(
+    val text: String,
+    val model_id: String = "eleven_multilingual_v2",
+    val voice_settings: VoiceSettings = VoiceSettings()
 )
 
-data class Parameters(
-    val voice_preset: String = "v2/en_speaker_6"
+data class VoiceSettings(
+    val stability: Float = 0.5f,
+    val similarity_boost: Float = 0.5f
 )

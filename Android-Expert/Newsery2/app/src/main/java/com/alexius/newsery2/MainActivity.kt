@@ -13,14 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.alexius.newsery2.presentation.huggingface.BarkScreen
-import com.alexius.newsery2.presentation.navgraph.NavGraph
+import com.alexius.newsery2.presentation.huggingface.ElevenLabsScreen
 import com.alexius.newsery2.presentation.onboarding.OnBoardingScreen
 import com.alexius.newsery2.presentation.onboarding.OnBoardingViewModel
 import com.alexius.newsery2.ui.theme.NewseryTheme
 import org.koin.androidx.compose.koinViewModel
-import kotlin.getValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
 
 
 class MainActivity : ComponentActivity() {
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BarkScreen()
+                    ElevenLabsScreen()
                 }
             }
         }
